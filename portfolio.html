@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roblox Scripter Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #080b14;
+    --bg2: #0d1120;
+    --bg3: #131929;
+    --accent: #4f9eff;
+    --accent2: #ff6b35;
+    --accent3: #7cff6b;
+    --text: #e8edf5;
+    --muted: #6b7a99;
+    --border: rgba(79, 158, 255, 0.15);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Animated background grid */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(79,158,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(79,158,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Glowing orbs */
+  body::after {
+    content: '';
+    position: fixed;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(79,158,255,0.06) 0%, transparent 70%);
+    top: -200px;
+    right: -200px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 24px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 100px 0 80px;
+    text-align: center;
+    position: relative;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(79,158,255,0.1);
+    border: 1px solid rgba(79,158,255,0.3);
+    border-radius: 100px;
+    padding: 6px 16px;
+    font-size: 13px;
+    color: var(--accent);
+    font-family: 'DM Mono', monospace;
+    margin-bottom: 28px;
+    animation: fadeDown 0.6s ease both;
+  }
+
+  .hero-badge::before {
+    content: '';
+    width: 7px;
+    height: 7px;
+    background: var(--accent3);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--accent3);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  .hero h1 {
+    font-size: clamp(42px, 8vw, 72px);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -2px;
+    margin-bottom: 20px;
+    animation: fadeDown 0.6s 0.1s ease both;
+  }
+
+  .hero h1 span {
+    background: linear-gradient(135deg, var(--accent) 0%, #a78bfa 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    font-size: 18px;
+    color: var(--muted);
+    max-width: 480px;
+    margin: 0 auto 40px;
+    line-height: 1.6;
+    font-weight: 400;
+    animation: fadeDown 0.6s 0.2s ease both;
+  }
+
+  .hero-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    animation: fadeDown 0.6s 0.3s ease both;
+  }
+
+  .tag {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 6px 14px;
+    font-size: 13px;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    transition: all 0.2s;
+  }
+
+  .tag:hover {
+    border-color: rgba(79,158,255,0.4);
+    color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+    margin: 20px 0 60px;
+  }
+
+  /* ── SECTION TITLE ── */
+  .section-title {
+    font-size: 13px;
+    font-family: 'DM Mono', monospace;
+    color: var(--accent);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── SKILLS ROW ── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin-bottom: 80px;
+  }
+
+  .skill-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+    text-align: center;
+    transition: all 0.25s;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  .skill-card:hover {
+    border-color: rgba(79,158,255,0.4);
+    transform: translateY(-4px);
+    background: var(--bg3);
+  }
+
+  .skill-icon {
+    font-size: 28px;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .skill-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .skill-desc {
+    font-size: 12px;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* ── PROJECT CARDS ── */
+  .projects {
+    display: grid;
+    gap: 20px;
+    margin-bottom: 80px;
+  }
+
+  .project-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 32px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 20px;
+    align-items: start;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--card-accent, var(--accent)), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .project-card:hover {
+    border-color: rgba(79,158,255,0.3);
+    transform: translateY(-3px);
+    background: var(--bg3);
+  }
+
+  .project-card:hover::before {
+    opacity: 1;
+  }
+
+  .project-number {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 12px;
+    letter-spacing: 2px;
+  }
+
+  .project-title {
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 10px;
+    letter-spacing: -0.5px;
+  }
+
+  .project-desc {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.65;
+    margin-bottom: 20px;
+    font-weight: 400;
+  }
+
+  .project-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .feature-tag {
+    background: rgba(79,158,255,0.08);
+    border: 1px solid rgba(79,158,255,0.2);
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 12px;
+    color: var(--accent);
+    font-family: 'DM Mono', monospace;
+  }
+
+  .project-emoji {
+    font-size: 48px;
+    line-height: 1;
+    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4));
+  }
+
+  /* Color variants */
+  .card-blue { --card-accent: #4f9eff; }
+  .card-orange { --card-accent: #ff6b35; }
+  .card-green { --card-accent: #7cff6b; }
+  .card-purple { --card-accent: #a78bfa; }
+  .card-yellow { --card-accent: #ffd166; }
+  .card-pink { --card-accent: #ff6b9d; }
+
+  .card-blue .project-title { color: #4f9eff; }
+  .card-orange .project-title { color: #ff6b35; }
+  .card-green .project-title { color: #7cff6b; }
+  .card-purple .project-title { color: #a78bfa; }
+  .card-yellow .project-title { color: #ffd166; }
+  .card-pink .project-title { color: #ff6b9d; }
+
+  .card-blue .feature-tag { background: rgba(79,158,255,0.08); border-color: rgba(79,158,255,0.2); color: #4f9eff; }
+  .card-orange .feature-tag { background: rgba(255,107,53,0.08); border-color: rgba(255,107,53,0.2); color: #ff6b35; }
+  .card-green .feature-tag { background: rgba(124,255,107,0.08); border-color: rgba(124,255,107,0.2); color: #7cff6b; }
+  .card-purple .feature-tag { background: rgba(167,139,250,0.08); border-color: rgba(167,139,250,0.2); color: #a78bfa; }
+  .card-yellow .feature-tag { background: rgba(255,209,102,0.08); border-color: rgba(255,209,102,0.2); color: #ffd166; }
+  .card-pink .feature-tag { background: rgba(255,107,157,0.08); border-color: rgba(255,107,157,0.2); color: #ff6b9d; }
+
+  /* ── STATS ROW ── */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 80px;
+  }
+
+  .stat-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px 20px;
+    text-align: center;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  .stat-number {
+    font-size: 42px;
+    font-weight: 800;
+    letter-spacing: -2px;
+    background: linear-gradient(135deg, var(--accent), #a78bfa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .stat-label {
+    font-size: 13px;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* ── CONTACT ── */
+  .contact {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 48px;
+    text-align: center;
+    margin-bottom: 60px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .contact::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(79,158,255,0.08) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .contact h2 {
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 12px;
+  }
+
+  .contact p {
+    color: var(--muted);
+    margin-bottom: 28px;
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  .contact-note {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--accent);
+    background: rgba(79,158,255,0.08);
+    border: 1px solid rgba(79,158,255,0.2);
+    border-radius: 10px;
+    padding: 14px 20px;
+    display: inline-block;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 30px 0;
+    color: var(--muted);
+    font-size: 13px;
+    font-family: 'DM Mono', monospace;
+    border-top: 1px solid var(--border);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .project-card:nth-child(1) { animation-delay: 0.05s; }
+  .project-card:nth-child(2) { animation-delay: 0.1s; }
+  .project-card:nth-child(3) { animation-delay: 0.15s; }
+  .project-card:nth-child(4) { animation-delay: 0.2s; }
+  .project-card:nth-child(5) { animation-delay: 0.25s; }
+  .project-card:nth-child(6) { animation-delay: 0.3s; }
+  .project-card:nth-child(7) { animation-delay: 0.35s; }
+
+  .skill-card:nth-child(1) { animation-delay: 0.05s; }
+  .skill-card:nth-child(2) { animation-delay: 0.1s; }
+  .skill-card:nth-child(3) { animation-delay: 0.15s; }
+  .skill-card:nth-child(4) { animation-delay: 0.2s; }
+  .skill-card:nth-child(5) { animation-delay: 0.25s; }
+  .skill-card:nth-child(6) { animation-delay: 0.3s; }
+
+  @media (max-width: 600px) {
+    .project-card { grid-template-columns: 1fr; }
+    .project-emoji { display: none; }
+    .stats { grid-template-columns: 1fr; }
+    .hero { padding: 60px 0 40px; }
+    .contact { padding: 32px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-badge">available for commissions</div>
+    <h1>6fraid<br><span>Scripter</span></h1>
+    <p class="hero-sub">Building clean, exploit-safe game systems. Specializing in UI, economy systems, combat, and player mechanics.</p>
+    <div class="hero-tags">
+      <span class="tag">Lua / Luau</span>
+      <span class="tag">RemoteEvents</span>
+      <span class="tag">DataStores</span>
+      <span class="tag">UI Systems</span>
+      <span class="tag">Server Security</span>
+      <span class="tag">Roblox Studio</span>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat-card">
+      <div class="stat-number">7+</div>
+      <div class="stat-label">systems built</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">4</div>
+      <div class="stat-label">active proposals</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">0</div>
+      <div class="stat-label">missed deadlines</div>
+    </div>
+  </div>
+
+  <!-- SKILLS -->
+  <p class="section-title">core skills</p>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <span class="skill-icon">🖥️</span>
+      <div class="skill-name">UI Systems</div>
+      <div class="skill-desc">ScreenGui, Tweens, animations</div>
+    </div>
+    <div class="skill-card">
+      <span class="skill-icon">🔒</span>
+      <div class="skill-name">Server Security</div>
+      <div class="skill-desc">Anti-exploit, rate limiting</div>
+    </div>
+    <div class="skill-card">
+      <span class="skill-icon">💾</span>
+      <div class="skill-name">DataStores</div>
+      <div class="skill-desc">Persistent player data saving</div>
+    </div>
+    <div class="skill-card">
+      <span class="skill-icon">🎮</span>
+      <div class="skill-name">Player Systems</div>
+      <div class="skill-desc">Movement, combat, stats</div>
+    </div>
+    <div class="skill-card">
+      <span class="skill-icon">📡</span>
+      <div class="skill-name">Remote Events</div>
+      <div class="skill-desc">Client-server communication</div>
+    </div>
+    <div class="skill-card">
+      <span class="skill-icon">💰</span>
+      <div class="skill-name">Economy Systems</div>
+      <div class="skill-desc">Shops, currencies, rewards</div>
+    </div>
+  </div>
+
+  <!-- PROJECTS -->
+  <p class="section-title">projects</p>
+  <div class="projects">
+
+    <div class="project-card card-yellow">
+      <div>
+        <div class="project-number">PROJECT 01</div>
+        <div class="project-title">Daily Rewards System</div>
+        <div class="project-desc">A 7-day reward popup that appears on join with animated card grid, countdown timer, and DataStore saving so claim times persist between sessions. Includes smooth open/close animations and a reopen button.</div>
+        <div class="project-features">
+          <span class="feature-tag">DataStore</span>
+          <span class="feature-tag">TweenService</span>
+          <span class="feature-tag">24hr Cooldown</span>
+          <span class="feature-tag">Animated UI</span>
+          <span class="feature-tag">Auto Popup</span>
+        </div>
+      </div>
+      <div class="project-emoji">🎁</div>
+    </div>
+
+    <div class="project-card card-green">
+      <div>
+        <div class="project-number">PROJECT 02</div>
+        <div class="project-title">Shop & Economy System</div>
+        <div class="project-desc">Full in-game shop with scrollable item cards, coin currency, purchase validation, and coin pickup collectibles that respawn. Includes daily login bonus, proximity-based shop opening, and a live coin counter UI.</div>
+        <div class="project-features">
+          <span class="feature-tag">RemoteEvents</span>
+          <span class="feature-tag">Coin Pickups</span>
+          <span class="feature-tag">Server Validation</span>
+          <span class="feature-tag">Proximity Detection</span>
+          <span class="feature-tag">ScrollingFrame</span>
+        </div>
+      </div>
+      <div class="project-emoji">🛒</div>
+    </div>
+
+    <div class="project-card card-blue">
+      <div>
+        <div class="project-number">PROJECT 03</div>
+        <div class="project-title">Tutorial & Arrow System</div>
+        <div class="project-desc">A 3-step guided tutorial system with a rotating arrow that always points toward the target — even pinning to the screen edge when off screen. Includes step progress tracker, completion popups, and auto-cleanup when finished.</div>
+        <div class="project-features">
+          <span class="feature-tag">WorldToViewport</span>
+          <span class="feature-tag">RunService</span>
+          <span class="feature-tag">Step Progression</span>
+          <span class="feature-tag">Offscreen Arrow</span>
+          <span class="feature-tag">Auto Cleanup</span>
+        </div>
+      </div>
+      <div class="project-emoji">🧭</div>
+    </div>
+
+    <div class="project-card card-orange">
+      <div>
+        <div class="project-number">PROJECT 04</div>
+        <div class="project-title">M1 Combat System</div>
+        <div class="project-desc">Left click combat system that alternates between two punch animations with a combo indicator UI. Server-side hit detection with range checks and rate limiting to prevent exploiting.</div>
+        <div class="project-features">
+          <span class="feature-tag">UserInputService</span>
+          <span class="feature-tag">Rate Limiting</span>
+          <span class="feature-tag">Hitbox Detection</span>
+          <span class="feature-tag">Combo UI</span>
+          <span class="feature-tag">Anti-Exploit</span>
+        </div>
+      </div>
+      <div class="project-emoji">👊</div>
+    </div>
+
+    <div class="project-card card-purple">
+      <div>
+        <div class="project-number">PROJECT 05</div>
+        <div class="project-title">Checkpoint System</div>
+        <div class="project-desc">Multi-checkpoint respawn system that saves a player's last touched checkpoint. Active checkpoints glow yellow, completed ones reset to grey. Players respawn at their saved checkpoint after death instead of the start.</div>
+        <div class="project-features">
+          <span class="feature-tag">CFrame</span>
+          <span class="feature-tag">CharacterAdded</span>
+          <span class="feature-tag">Visual Feedback</span>
+          <span class="feature-tag">Folder System</span>
+        </div>
+      </div>
+      <div class="project-emoji">🚩</div>
+    </div>
+
+    <div class="project-card card-pink">
+      <div>
+        <div class="project-number">PROJECT 06</div>
+        <div class="project-title">Camel Movement Controller</div>
+        <div class="project-desc">Custom character controller for a camel model with smooth WASD movement, acceleration and deceleration, natural rotation on A/D, animation state machine for idle and walk, and footstep audio tied to movement speed.</div>
+        <div class="project-features">
+          <span class="feature-tag">Custom Controller</span>
+          <span class="feature-tag">Smooth Acceleration</span>
+          <span class="feature-tag">Animation States</span>
+          <span class="feature-tag">Heartbeat Loop</span>
+          <span class="feature-tag">Footstep Audio</span>
+        </div>
+      </div>
+      <div class="project-emoji">🐪</div>
+    </div>
+
+    <div class="project-card card-blue">
+      <div>
+        <div class="project-number">PROJECT 07</div>
+        <div class="project-title">Sword Combat System</div>
+        <div class="project-desc">Tool-based sword with swing animations, overlap hitbox detection, and server-side damage validation. Includes per-swing hit tracking to prevent multi-hitting and a cooldown system.</div>
+        <div class="project-features">
+          <span class="feature-tag">GetPartsInPart</span>
+          <span class="feature-tag">Tool System</span>
+          <span class="feature-tag">Server Damage</span>
+          <span class="feature-tag">Hit Tracking</span>
+        </div>
+      </div>
+      <div class="project-emoji">⚔️</div>
+    </div>
+
+  </div>
+
+  <!-- CONTACT -->
+  <div class="contact">
+    <h2>Open for Commissions</h2>
+    <p>Looking for clean, reliable scripting work. Fast turnaround, frequent updates, exploit-safe code.</p>
+    <div class="contact-note">💬 Add me on Discord — <strong>6fraid</strong> — send me your project details and I'll get back to you same day.</div>
+  </div>
+
+  <footer>
+    built with luau · roblox studio · no prior experience needed, just the grind
+  </footer>
+
+</div>
+
+</body>
+</html>
