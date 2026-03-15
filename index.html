@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Roblox Scripter Portfolio</title>
+<title>6fraid — Roblox Scripter</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -30,7 +30,6 @@
     overflow-x: hidden;
   }
 
-  /* Animated background grid */
   body::before {
     content: '';
     position: fixed;
@@ -43,7 +42,6 @@
     z-index: 0;
   }
 
-  /* Glowing orbs */
   body::after {
     content: '';
     position: fixed;
@@ -121,7 +119,7 @@
   .hero-sub {
     font-size: 18px;
     color: var(--muted);
-    max-width: 480px;
+    max-width: 520px;
     margin: 0 auto 40px;
     line-height: 1.6;
     font-weight: 400;
@@ -223,6 +221,111 @@
     font-family: 'DM Mono', monospace;
   }
 
+  /* ── FEATURED PROJECT (full game) ── */
+  .featured-card {
+    background: var(--bg2);
+    border: 1px solid rgba(124,255,107,0.25);
+    border-radius: 24px;
+    padding: 36px;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+    animation: fadeUp 0.5s ease both;
+    transition: all 0.3s;
+  }
+
+  .featured-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #7cff6b, transparent);
+  }
+
+  .featured-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 80% 50%, rgba(124,255,107,0.04) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .featured-card:hover {
+    border-color: rgba(124,255,107,0.4);
+    transform: translateY(-3px);
+    background: var(--bg3);
+  }
+
+  .featured-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(124,255,107,0.1);
+    border: 1px solid rgba(124,255,107,0.3);
+    border-radius: 100px;
+    padding: 4px 12px;
+    font-size: 11px;
+    font-family: 'DM Mono', monospace;
+    color: #7cff6b;
+    margin-bottom: 16px;
+    letter-spacing: 1px;
+  }
+
+  .featured-inner {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 20px;
+    align-items: start;
+  }
+
+  .featured-title {
+    font-size: 26px;
+    font-weight: 800;
+    color: #7cff6b;
+    letter-spacing: -0.5px;
+    margin-bottom: 10px;
+  }
+
+  .featured-desc {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 20px;
+    font-weight: 400;
+  }
+
+  .featured-systems {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .system-item {
+    background: rgba(124,255,107,0.05);
+    border: 1px solid rgba(124,255,107,0.15);
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 12px;
+    font-family: 'DM Mono', monospace;
+    color: #7cff6b;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .system-item::before {
+    content: '✓';
+    opacity: 0.7;
+    font-size: 11px;
+  }
+
+  .featured-emoji {
+    font-size: 56px;
+    line-height: 1;
+    filter: drop-shadow(0 4px 16px rgba(124,255,107,0.3));
+  }
+
   /* ── PROJECT CARDS ── */
   .projects {
     display: grid;
@@ -248,9 +351,7 @@
   .project-card::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
+    top: 0; left: 0; right: 0;
     height: 2px;
     background: linear-gradient(90deg, transparent, var(--card-accent, var(--accent)), transparent);
     opacity: 0;
@@ -263,9 +364,7 @@
     background: var(--bg3);
   }
 
-  .project-card:hover::before {
-    opacity: 1;
-  }
+  .project-card:hover::before { opacity: 1; }
 
   .project-number {
     font-family: 'DM Mono', monospace;
@@ -313,31 +412,34 @@
   }
 
   /* Color variants */
-  .card-blue { --card-accent: #4f9eff; }
-  .card-orange { --card-accent: #ff6b35; }
+  .card-blue  { --card-accent: #4f9eff; }
+  .card-orange{ --card-accent: #ff6b35; }
   .card-green { --card-accent: #7cff6b; }
-  .card-purple { --card-accent: #a78bfa; }
-  .card-yellow { --card-accent: #ffd166; }
-  .card-pink { --card-accent: #ff6b9d; }
+  .card-purple{ --card-accent: #a78bfa; }
+  .card-yellow{ --card-accent: #ffd166; }
+  .card-pink  { --card-accent: #ff6b9d; }
+  .card-cyan  { --card-accent: #22d3ee; }
 
-  .card-blue .project-title { color: #4f9eff; }
+  .card-blue   .project-title { color: #4f9eff; }
   .card-orange .project-title { color: #ff6b35; }
-  .card-green .project-title { color: #7cff6b; }
+  .card-green  .project-title { color: #7cff6b; }
   .card-purple .project-title { color: #a78bfa; }
   .card-yellow .project-title { color: #ffd166; }
-  .card-pink .project-title { color: #ff6b9d; }
+  .card-pink   .project-title { color: #ff6b9d; }
+  .card-cyan   .project-title { color: #22d3ee; }
 
-  .card-blue .feature-tag { background: rgba(79,158,255,0.08); border-color: rgba(79,158,255,0.2); color: #4f9eff; }
-  .card-orange .feature-tag { background: rgba(255,107,53,0.08); border-color: rgba(255,107,53,0.2); color: #ff6b35; }
-  .card-green .feature-tag { background: rgba(124,255,107,0.08); border-color: rgba(124,255,107,0.2); color: #7cff6b; }
+  .card-blue   .feature-tag { background: rgba(79,158,255,0.08);  border-color: rgba(79,158,255,0.2);  color: #4f9eff; }
+  .card-orange .feature-tag { background: rgba(255,107,53,0.08);  border-color: rgba(255,107,53,0.2);  color: #ff6b35; }
+  .card-green  .feature-tag { background: rgba(124,255,107,0.08); border-color: rgba(124,255,107,0.2); color: #7cff6b; }
   .card-purple .feature-tag { background: rgba(167,139,250,0.08); border-color: rgba(167,139,250,0.2); color: #a78bfa; }
   .card-yellow .feature-tag { background: rgba(255,209,102,0.08); border-color: rgba(255,209,102,0.2); color: #ffd166; }
-  .card-pink .feature-tag { background: rgba(255,107,157,0.08); border-color: rgba(255,107,157,0.2); color: #ff6b9d; }
+  .card-pink   .feature-tag { background: rgba(255,107,157,0.08); border-color: rgba(255,107,157,0.2); color: #ff6b9d; }
+  .card-cyan   .feature-tag { background: rgba(34,211,238,0.08);  border-color: rgba(34,211,238,0.2);  color: #22d3ee; }
 
   /* ── STATS ROW ── */
   .stats {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 16px;
     margin-bottom: 80px;
   }
@@ -352,7 +454,7 @@
   }
 
   .stat-number {
-    font-size: 42px;
+    font-size: 38px;
     font-weight: 800;
     letter-spacing: -2px;
     background: linear-gradient(135deg, var(--accent), #a78bfa);
@@ -364,9 +466,67 @@
   }
 
   .stat-label {
-    font-size: 13px;
+    font-size: 12px;
     color: var(--muted);
     font-family: 'DM Mono', monospace;
+  }
+
+  /* ── WHAT I BRING (for this specific job) ── */
+  .fit-section {
+    background: var(--bg2);
+    border: 1px solid rgba(79,158,255,0.2);
+    border-radius: 20px;
+    padding: 36px;
+    margin-bottom: 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .fit-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 10% 50%, rgba(79,158,255,0.04) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .fit-title {
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+  }
+
+  .fit-sub {
+    font-size: 14px;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    margin-bottom: 24px;
+  }
+
+  .fit-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+  }
+
+  .fit-item {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.5;
+  }
+
+  .fit-item strong {
+    display: block;
+    color: var(--accent);
+    font-size: 12px;
+    font-family: 'DM Mono', monospace;
+    margin-bottom: 4px;
+    letter-spacing: 1px;
   }
 
   /* ── CONTACT ── */
@@ -427,12 +587,12 @@
   /* ── ANIMATIONS ── */
   @keyframes fadeDown {
     from { opacity: 0; transform: translateY(-16px); }
-    to { opacity: 1; transform: translateY(0); }
+    to   { opacity: 1; transform: translateY(0); }
   }
 
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    to   { opacity: 1; transform: translateY(0); }
   }
 
   .project-card:nth-child(1) { animation-delay: 0.05s; }
@@ -449,11 +609,15 @@
   .skill-card:nth-child(4) { animation-delay: 0.2s; }
   .skill-card:nth-child(5) { animation-delay: 0.25s; }
   .skill-card:nth-child(6) { animation-delay: 0.3s; }
+  .skill-card:nth-child(7) { animation-delay: 0.35s; }
+  .skill-card:nth-child(8) { animation-delay: 0.4s; }
 
-  @media (max-width: 600px) {
+  @media (max-width: 700px) {
     .project-card { grid-template-columns: 1fr; }
     .project-emoji { display: none; }
-    .stats { grid-template-columns: 1fr; }
+    .featured-inner { grid-template-columns: 1fr; }
+    .featured-emoji { display: none; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
     .hero { padding: 60px 0 40px; }
     .contact { padding: 32px 20px; }
   }
@@ -467,13 +631,15 @@
   <section class="hero">
     <div class="hero-badge">available for commissions</div>
     <h1>6fraid<br><span>Scripter</span></h1>
-    <p class="hero-sub">Building clean, exploit-safe game systems. Specializing in UI, economy systems, combat, and player mechanics.</p>
+    <p class="hero-sub">3 years building clean, exploit-safe Roblox systems — from solo full-game dev to UI, economy, combat, and everything between.</p>
     <div class="hero-tags">
       <span class="tag">Lua / Luau</span>
       <span class="tag">RemoteEvents</span>
       <span class="tag">DataStores</span>
       <span class="tag">UI Systems</span>
       <span class="tag">Server Security</span>
+      <span class="tag">Global Leaderboards</span>
+      <span class="tag">Career Systems</span>
       <span class="tag">Roblox Studio</span>
     </div>
   </section>
@@ -483,12 +649,16 @@
   <!-- STATS -->
   <div class="stats">
     <div class="stat-card">
-      <div class="stat-number">7+</div>
+      <div class="stat-number">3+</div>
+      <div class="stat-label">years experience</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">15+</div>
       <div class="stat-label">systems built</div>
     </div>
     <div class="stat-card">
-      <div class="stat-number">4</div>
-      <div class="stat-label">active proposals</div>
+      <div class="stat-number">1</div>
+      <div class="stat-label">full game shipped</div>
     </div>
     <div class="stat-card">
       <div class="stat-number">0</div>
@@ -529,10 +699,48 @@
       <div class="skill-name">Economy Systems</div>
       <div class="skill-desc">Shops, currencies, rewards</div>
     </div>
+    <div class="skill-card">
+      <span class="skill-icon">🏆</span>
+      <div class="skill-name">Leaderboards</div>
+      <div class="skill-desc">Global OrderedDataStore</div>
+    </div>
+    <div class="skill-card">
+      <span class="skill-icon">🗂️</span>
+      <div class="skill-name">Game Architecture</div>
+      <div class="skill-desc">Modular, scalable design</div>
+    </div>
   </div>
 
-  <!-- PROJECTS -->
-  <p class="section-title">projects</p>
+  <!-- FEATURED PROJECT -->
+  <p class="section-title">featured project</p>
+
+  <div class="featured-card">
+    <div class="featured-badge">★ FULL SOLO-DEVELOPED GAME</div>
+    <div class="featured-inner">
+      <div>
+        <div class="featured-title">Bug Fixer — Full Roblox Game</div>
+        <div class="featured-desc">
+          A complete solo-built Roblox game where players take contracts fixing bugs for in-game companies to earn money and progress their career. Built every system from scratch — architecture, security, UI, data, and game loop — all production-ready and exploit-safe.
+        </div>
+        <div class="featured-systems">
+          <div class="system-item">Global Leaderboard</div>
+          <div class="system-item">Career Mode</div>
+          <div class="system-item">Upgrade Shop</div>
+          <div class="system-item">Stat Page</div>
+          <div class="system-item">Achievement Wall</div>
+          <div class="system-item">Company Applications</div>
+          <div class="system-item">Tiered Job System</div>
+          <div class="system-item">Anti-Exploit</div>
+          <div class="system-item">Server Validation</div>
+          <div class="system-item">OrderedDataStore</div>
+        </div>
+      </div>
+      <div class="featured-emoji">🖥️</div>
+    </div>
+  </div>
+
+  <!-- OTHER PROJECTS -->
+  <p class="section-title">other projects</p>
   <div class="projects">
 
     <div class="project-card card-yellow">
@@ -647,6 +855,39 @@
 
   </div>
 
+  <!-- WHY I FIT THIS JOB -->
+  <p class="section-title">why I fit secondary scripter roles</p>
+  <div class="fit-section">
+    <div class="fit-title">I've built the whole stack — I can slot into yours.</div>
+    <div class="fit-sub">// secondary scripting · bug fixes · small systems · clean documented code</div>
+    <div class="fit-grid">
+      <div class="fit-item">
+        <strong>BUG FIXES</strong>
+        Shipped a full game solo — I've debugged everything from DataStore race conditions to client/server desync.
+      </div>
+      <div class="fit-item">
+        <strong>DOCUMENTED CODE</strong>
+        Every system I write is readable and commented. I treat code like a teammate will inherit it tomorrow.
+      </div>
+      <div class="fit-item">
+        <strong>WORKING IN FRAMEWORKS</strong>
+        I've designed my own architecture — adapting to an existing one is natural, not a challenge.
+      </div>
+      <div class="fit-item">
+        <strong>SMALL SYSTEMS</strong>
+        Daily rewards, tutorials, checkpoints, pickups — I've built a dozen self-contained systems, clean and reusable.
+      </div>
+      <div class="fit-item">
+        <strong>ANTI-EXPLOIT</strong>
+        Server-side validation, rate limiting, and sanity checks are standard in all my code, not afterthoughts.
+      </div>
+      <div class="fit-item">
+        <strong>FAST TURNAROUND</strong>
+        3 years of consistent output. I scope correctly and deliver. Zero missed deadlines.
+      </div>
+    </div>
+  </div>
+
   <!-- CONTACT -->
   <div class="contact">
     <h2>Open for Commissions</h2>
@@ -655,7 +896,7 @@
   </div>
 
   <footer>
-    built with luau · roblox studio · no prior experience needed, just the grind
+    built with luau · roblox studio · 3 years in the grind
   </footer>
 
 </div>
