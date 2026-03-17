@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>6fraid — Roblox Scripter</title>
+<title>6fraid - Roblox Scripter</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -63,7 +63,6 @@
     z-index: 1;
   }
 
-  /* ── HERO ── */
   .hero {
     padding: 100px 0 80px;
     text-align: center;
@@ -151,14 +150,12 @@
     transform: translateY(-2px);
   }
 
-  /* ── DIVIDER ── */
   .divider {
     height: 1px;
     background: linear-gradient(90deg, transparent, var(--border), transparent);
     margin: 20px 0 60px;
   }
 
-  /* ── SECTION TITLE ── */
   .section-title {
     font-size: 13px;
     font-family: 'DM Mono', monospace;
@@ -178,7 +175,6 @@
     background: var(--border);
   }
 
-  /* ── SKILLS ROW ── */
   .skills-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -202,26 +198,10 @@
     background: var(--bg3);
   }
 
-  .skill-icon {
-    font-size: 28px;
-    margin-bottom: 10px;
-    display: block;
-  }
+  .skill-icon { font-size: 28px; margin-bottom: 10px; display: block; }
+  .skill-name { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+  .skill-desc { font-size: 12px; color: var(--muted); font-family: 'DM Mono', monospace; }
 
-  .skill-name {
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--text);
-    margin-bottom: 4px;
-  }
-
-  .skill-desc {
-    font-size: 12px;
-    color: var(--muted);
-    font-family: 'DM Mono', monospace;
-  }
-
-  /* ── CURRENT CONTRACT ── */
   .contract-card {
     background: var(--bg2);
     border: 1px solid rgba(255, 209, 102, 0.3);
@@ -256,15 +236,6 @@
     background: var(--bg3);
   }
 
-  .contract-header {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 20px;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
-  }
-
   .contract-badge {
     display: inline-flex;
     align-items: center;
@@ -290,45 +261,11 @@
     animation: pulse 2s infinite;
   }
 
-  .contract-title {
-    font-size: 26px;
-    font-weight: 800;
-    color: #ffd166;
-    letter-spacing: -0.5px;
-    margin-bottom: 6px;
-  }
-
-  .contract-role {
-    font-size: 13px;
-    font-family: 'DM Mono', monospace;
-    color: var(--muted);
-    margin-bottom: 14px;
-  }
-
-  .contract-desc {
-    font-size: 15px;
-    color: var(--muted);
-    line-height: 1.7;
-    margin-bottom: 24px;
-    font-weight: 400;
-    max-width: 680px;
-  }
-
-  .contract-emoji {
-    font-size: 56px;
-    line-height: 1;
-    filter: drop-shadow(0 4px 16px rgba(255,209,102,0.3));
-    flex-shrink: 0;
-  }
-
-  .contract-systems-title {
-    font-size: 11px;
-    font-family: 'DM Mono', monospace;
-    color: var(--muted);
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-bottom: 12px;
-  }
+  .contract-title { font-size: 26px; font-weight: 800; color: #ffd166; letter-spacing: -0.5px; margin-bottom: 6px; }
+  .contract-role { font-size: 13px; font-family: 'DM Mono', monospace; color: var(--muted); margin-bottom: 14px; }
+  .contract-desc { font-size: 15px; color: var(--muted); line-height: 1.7; margin-bottom: 24px; font-weight: 400; max-width: 680px; }
+  .contract-emoji { font-size: 56px; line-height: 1; filter: drop-shadow(0 4px 16px rgba(255,209,102,0.3)); flex-shrink: 0; }
+  .contract-systems-title { font-size: 11px; font-family: 'DM Mono', monospace; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
 
   .contract-systems {
     display: grid;
@@ -356,19 +293,9 @@
     gap: 6px;
   }
 
-  .contract-system-name::before {
-    content: '✓';
-    font-size: 10px;
-    opacity: 0.7;
-  }
+  .contract-system-name::before { content: '✓'; font-size: 10px; opacity: 0.7; }
+  .contract-system-detail { color: var(--muted); font-size: 11px; line-height: 1.5; }
 
-  .contract-system-detail {
-    color: var(--muted);
-    font-size: 11px;
-    line-height: 1.5;
-  }
-
-  /* ── FEATURED PROJECT (full game) ── */
   .featured-card {
     background: var(--bg2);
     border: 1px solid rgba(124,255,107,0.25);
@@ -418,28 +345,9 @@
     letter-spacing: 1px;
   }
 
-  .featured-inner {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 20px;
-    align-items: start;
-  }
-
-  .featured-title {
-    font-size: 26px;
-    font-weight: 800;
-    color: #7cff6b;
-    letter-spacing: -0.5px;
-    margin-bottom: 10px;
-  }
-
-  .featured-desc {
-    font-size: 15px;
-    color: var(--muted);
-    line-height: 1.7;
-    margin-bottom: 20px;
-    font-weight: 400;
-  }
+  .featured-inner { display: grid; grid-template-columns: 1fr auto; gap: 20px; align-items: start; }
+  .featured-title { font-size: 26px; font-weight: 800; color: #7cff6b; letter-spacing: -0.5px; margin-bottom: 10px; }
+  .featured-desc { font-size: 15px; color: var(--muted); line-height: 1.7; margin-bottom: 20px; font-weight: 400; }
 
   .featured-systems {
     display: grid;
@@ -461,24 +369,10 @@
     gap: 6px;
   }
 
-  .system-item::before {
-    content: '✓';
-    opacity: 0.7;
-    font-size: 11px;
-  }
+  .system-item::before { content: '✓'; opacity: 0.7; font-size: 11px; }
+  .featured-emoji { font-size: 56px; line-height: 1; filter: drop-shadow(0 4px 16px rgba(124,255,107,0.3)); }
 
-  .featured-emoji {
-    font-size: 56px;
-    line-height: 1;
-    filter: drop-shadow(0 4px 16px rgba(124,255,107,0.3));
-  }
-
-  /* ── PROJECT CARDS ── */
-  .projects {
-    display: grid;
-    gap: 20px;
-    margin-bottom: 80px;
-  }
+  .projects { display: grid; gap: 20px; margin-bottom: 80px; }
 
   .project-card {
     background: var(--bg2);
@@ -505,42 +399,13 @@
     transition: opacity 0.3s;
   }
 
-  .project-card:hover {
-    border-color: rgba(79,158,255,0.3);
-    transform: translateY(-3px);
-    background: var(--bg3);
-  }
-
+  .project-card:hover { border-color: rgba(79,158,255,0.3); transform: translateY(-3px); background: var(--bg3); }
   .project-card:hover::before { opacity: 1; }
 
-  .project-number {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    color: var(--muted);
-    margin-bottom: 12px;
-    letter-spacing: 2px;
-  }
-
-  .project-title {
-    font-size: 22px;
-    font-weight: 800;
-    margin-bottom: 10px;
-    letter-spacing: -0.5px;
-  }
-
-  .project-desc {
-    font-size: 15px;
-    color: var(--muted);
-    line-height: 1.65;
-    margin-bottom: 20px;
-    font-weight: 400;
-  }
-
-  .project-features {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
+  .project-number { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); margin-bottom: 12px; letter-spacing: 2px; }
+  .project-title { font-size: 22px; font-weight: 800; margin-bottom: 10px; letter-spacing: -0.5px; }
+  .project-desc { font-size: 15px; color: var(--muted); line-height: 1.65; margin-bottom: 20px; font-weight: 400; }
+  .project-features { display: flex; flex-wrap: wrap; gap: 8px; }
 
   .feature-tag {
     background: rgba(79,158,255,0.08);
@@ -552,13 +417,8 @@
     font-family: 'DM Mono', monospace;
   }
 
-  .project-emoji {
-    font-size: 48px;
-    line-height: 1;
-    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4));
-  }
+  .project-emoji { font-size: 48px; line-height: 1; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4)); }
 
-  /* Color variants */
   .card-blue  { --card-accent: #4f9eff; }
   .card-orange{ --card-accent: #ff6b35; }
   .card-green { --card-accent: #7cff6b; }
@@ -583,13 +443,7 @@
   .card-pink   .feature-tag { background: rgba(255,107,157,0.08); border-color: rgba(255,107,157,0.2); color: #ff6b9d; }
   .card-cyan   .feature-tag { background: rgba(34,211,238,0.08);  border-color: rgba(34,211,238,0.2);  color: #22d3ee; }
 
-  /* ── STATS ROW ── */
-  .stats {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-    margin-bottom: 80px;
-  }
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 80px; }
 
   .stat-card {
     background: var(--bg2);
@@ -612,13 +466,8 @@
     margin-bottom: 8px;
   }
 
-  .stat-label {
-    font-size: 12px;
-    color: var(--muted);
-    font-family: 'DM Mono', monospace;
-  }
+  .stat-label { font-size: 12px; color: var(--muted); font-family: 'DM Mono', monospace; }
 
-  /* ── WHAT I BRING ── */
   .fit-section {
     background: var(--bg2);
     border: 1px solid rgba(79,158,255,0.2);
@@ -637,25 +486,10 @@
     pointer-events: none;
   }
 
-  .fit-title {
-    font-size: 20px;
-    font-weight: 800;
-    margin-bottom: 8px;
-    letter-spacing: -0.5px;
-  }
+  .fit-title { font-size: 20px; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.5px; }
+  .fit-sub { font-size: 14px; color: var(--muted); font-family: 'DM Mono', monospace; margin-bottom: 24px; }
 
-  .fit-sub {
-    font-size: 14px;
-    color: var(--muted);
-    font-family: 'DM Mono', monospace;
-    margin-bottom: 24px;
-  }
-
-  .fit-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 12px;
-  }
+  .fit-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
 
   .fit-item {
     background: var(--bg3);
@@ -667,16 +501,8 @@
     line-height: 1.5;
   }
 
-  .fit-item strong {
-    display: block;
-    color: var(--accent);
-    font-size: 12px;
-    font-family: 'DM Mono', monospace;
-    margin-bottom: 4px;
-    letter-spacing: 1px;
-  }
+  .fit-item strong { display: block; color: var(--accent); font-size: 12px; font-family: 'DM Mono', monospace; margin-bottom: 4px; letter-spacing: 1px; }
 
-  /* ── CONTACT ── */
   .contact {
     background: var(--bg2);
     border: 1px solid var(--border);
@@ -696,19 +522,8 @@
     pointer-events: none;
   }
 
-  .contact h2 {
-    font-size: 32px;
-    font-weight: 800;
-    letter-spacing: -1px;
-    margin-bottom: 12px;
-  }
-
-  .contact p {
-    color: var(--muted);
-    margin-bottom: 28px;
-    font-size: 16px;
-    font-weight: 400;
-  }
+  .contact h2 { font-size: 32px; font-weight: 800; letter-spacing: -1px; margin-bottom: 12px; }
+  .contact p { color: var(--muted); margin-bottom: 28px; font-size: 16px; font-weight: 400; }
 
   .contact-note {
     font-family: 'DM Mono', monospace;
@@ -721,7 +536,6 @@
     display: inline-block;
   }
 
-  /* ── CODE SNIPPET ── */
   .snippet-toggle {
     background: none;
     border: 1px solid rgba(255,209,102,0.2);
@@ -738,15 +552,8 @@
     gap: 6px;
   }
 
-  .snippet-toggle:hover {
-    border-color: rgba(255,209,102,0.4);
-    color: #ffd166;
-  }
-
-  .snippet-toggle::before {
-    content: '{ }';
-    font-size: 10px;
-  }
+  .snippet-toggle:hover { border-color: rgba(255,209,102,0.4); color: #ffd166; }
+  .snippet-toggle::before { content: '{ }'; font-size: 10px; }
 
   .code-snippet {
     display: none;
@@ -771,7 +578,6 @@
   .code-num  { color: #7cff6b; }
   .code-cmt  { color: #3d4f6e; }
 
-  /* ── ANIMATIONS ── */
   @keyframes fadeDown {
     from { opacity: 0; transform: translateY(-16px); }
     to   { opacity: 1; transform: translateY(0); }
@@ -819,7 +625,7 @@
   <section class="hero">
     <div class="hero-badge">available for commissions</div>
     <h1>6fraid<br><span>Scripter</span></h1>
-    <p class="hero-sub">3 years building clean, exploit-safe Roblox systems — from solo full-game dev to UI, economy, combat, and everything between.</p>
+    <p class="hero-sub">3 years building clean, exploit-safe Roblox systems - from solo full-game dev to UI, economy, combat, and everything between.</p>
     <div class="hero-tags">
       <span class="tag">Lua / Luau</span>
       <span class="tag">RemoteEvents</span>
@@ -827,7 +633,7 @@
       <span class="tag">UI Systems</span>
       <span class="tag">Server Security</span>
       <span class="tag">Global Leaderboards</span>
-      <span class="tag">Career Systems</span>
+      <span class="tag">Economy Systems</span>
       <span class="tag">Roblox Studio</span>
     </div>
   </section>
@@ -841,7 +647,7 @@
       <div class="stat-label">years experience</div>
     </div>
     <div class="stat-card">
-      <div class="stat-number">15+</div>
+      <div class="stat-number">25+</div>
       <div class="stat-label">systems built</div>
     </div>
     <div class="stat-card">
@@ -885,7 +691,7 @@
     <div class="skill-card">
       <span class="skill-icon">💰</span>
       <div class="skill-name">Economy Systems</div>
-      <div class="skill-desc">Shops, currencies, rewards</div>
+      <div class="skill-desc">Income, upgrades, rewards</div>
     </div>
     <div class="skill-card">
       <span class="skill-icon">🏆</span>
@@ -907,15 +713,16 @@
     <div style="display: grid; grid-template-columns: 1fr auto; gap: 20px; align-items: start;">
       <div>
         <div class="contract-title">Nebulark Inc.</div>
-        <div class="contract-role">// secondary scripter · anticheat · bug fixes · ongoing</div>
+        <div class="contract-role">// secondary scripter · anticheat · economy · gameplay systems · ongoing</div>
         <div class="contract-desc">
-          Ongoing scripting contract for a brainrot-style Roblox game featuring stages, disappearing tiles, spike traps, and a lucky block system. Working alongside a lead scripter in a Team Create environment, responsible for server-side anticheat and general bug fixing across the codebase.
+          Ongoing scripting contract across two Roblox games. Responsible for server-side anticheat, a full idle game economy, brainrot gameplay systems, UI, and standalone modules - working in a Team Create environment alongside a lead scripter.
         </div>
         <div class="contract-systems-title">completed deliverables</div>
         <div class="contract-systems">
+
           <div class="contract-system">
-            <div class="contract-system-name">Anti Speed</div>
-            <div class="contract-system-detail">Server-side positional delta tracking. Lag-toleranced buffer. Kicks on 3rd flag.</div>
+            <div class="contract-system-name">Anti Speed / Fly / Infinite Jump</div>
+            <div class="contract-system-detail">Server-side positional tracking, airtime flagging, and jump state detection. Kicks on 3rd flag per violation type.</div>
             <button class="snippet-toggle" onclick="toggleSnippet('snippet-speed', this)">view snippet</button>
             <div class="code-snippet" id="snippet-speed"><span class="code-kw">local</span> currentPosition   = humanoidRootPart.Position
 <span class="code-kw">local</span> distanceTravelled = (currentPosition - data.lastPosition).Magnitude
@@ -929,58 +736,116 @@
 <span class="code-kw">end</span>
 data.lastPosition = currentPosition</div>
           </div>
+
           <div class="contract-system">
-            <div class="contract-system-name">Anti Fly</div>
-            <div class="contract-system-detail">Airtime tracking via StateChanged. Flags after 2.5s airborne. Kicks on 3rd flag.</div>
-            <button class="snippet-toggle" onclick="toggleSnippet('snippet-fly', this)">view snippet</button>
-            <div class="code-snippet" id="snippet-fly"><span class="code-kw">local</span> airtime = os.clock() - data.airtimeStart
-
-<span class="code-kw">if</span> airtime > CONFIG.MAX_AIRTIME <span class="code-kw">then</span>
-    data.flyFlags    += <span class="code-num">1</span>
-    data.airtimeStart = os.clock() <span class="code-cmt">-- reset window</span>
-
-    <span class="code-kw">if</span> data.flyFlags >= CONFIG.FLAG_THRESHOLD <span class="code-kw">then</span>
-        player:Kick(<span class="code-str">"exploiting detected: fly."</span>)
+            <div class="contract-system-name">Coin Flip System</div>
+            <div class="contract-system-detail">Server-side rarity rolling with weighted random, mutation system, and brainrot spawning at a central area via raycast ground detection.</div>
+            <button class="snippet-toggle" onclick="toggleSnippet('snippet-coinflip', this)">view snippet</button>
+            <div class="code-snippet" id="snippet-coinflip"><span class="code-kw">local function</span> <span class="code-fn">chooseRarity</span>(coinType)
+    <span class="code-kw">local</span> weights = Config.Coins[coinType] <span class="code-kw">or</span> Config.Coins.Basic
+    <span class="code-kw">local</span> total = <span class="code-num">0</span>
+    <span class="code-kw">for</span> _, w <span class="code-kw">in</span> pairs(weights) <span class="code-kw">do</span>
+        total += w
     <span class="code-kw">end</span>
-<span class="code-kw">end</span></div>
-          </div>
-          <div class="contract-system">
-            <div class="contract-system-name">Anti Infinite Jump</div>
-            <div class="contract-system-detail">Jump state tracking with 1s window. Flags rapid jumps without landing. Kicks on 3rd flag.</div>
-            <button class="snippet-toggle" onclick="toggleSnippet('snippet-jump', this)">view snippet</button>
-            <div class="code-snippet" id="snippet-jump"><span class="code-kw">local</span> now = os.clock()
-
-<span class="code-kw">if</span> <span class="code-kw">not</span> data.jumpWindowStart
-    <span class="code-kw">or</span> (now - data.jumpWindowStart) > CONFIG.JUMP_WINDOW <span class="code-kw">then</span>
-    data.jumpCount       = <span class="code-num">1</span>
-    data.jumpWindowStart = now
-<span class="code-kw">else</span>
-    data.jumpCount += <span class="code-num">1</span>
-    <span class="code-kw">if</span> data.jumpCount > CONFIG.MAX_JUMPS <span class="code-kw">then</span>
-        data.jumpFlags += <span class="code-num">1</span>
-        data.jumpCount       = <span class="code-num">0</span>
-        data.jumpWindowStart = <span class="code-kw">nil</span>
-        <span class="code-kw">if</span> data.jumpFlags >= CONFIG.FLAG_THRESHOLD <span class="code-kw">then</span>
-            player:Kick(<span class="code-str">"exploiting detected: infinite jump."</span>)
+    <span class="code-kw">local</span> roll = rng:<span class="code-fn">NextNumber</span>(<span class="code-num">0</span>, total)
+    <span class="code-kw">local</span> cumulative = <span class="code-num">0</span>
+    <span class="code-kw">for</span> _, tier <span class="code-kw">in</span> ipairs(Config.Rarity.TierOrder) <span class="code-kw">do</span>
+        cumulative += (weights[tier] <span class="code-kw">or</span> <span class="code-num">0</span>)
+        <span class="code-kw">if</span> roll <= cumulative <span class="code-kw">then</span>
+            <span class="code-kw">return</span> tier
         <span class="code-kw">end</span>
     <span class="code-kw">end</span>
+    <span class="code-kw">return</span> <span class="code-str">"Common"</span>
 <span class="code-kw">end</span></div>
           </div>
-          <div class="contract-system">
-            <div class="contract-system-name">Bug Fixes</div>
-            <div class="contract-system-detail">Fixed invalid Stats API call in server performance monitor causing repeated output errors.</div>
-            <button class="snippet-toggle" onclick="toggleSnippet('snippet-bug', this)">view snippet</button>
-            <div class="code-snippet" id="snippet-bug"><span class="code-cmt">-- before: Stats.PlaceMemoryUsageMb (invalid, errored every 5s)</span>
-<span class="code-cmt">-- after: line removed entirely</span>
 
-<span class="code-kw">local function</span> <span class="code-fn">getDetailedMemoryStats</span>()
-    <span class="code-kw">return</span> {
-        Total        = Stats:<span class="code-fn">GetTotalMemoryUsageMb</span>(),
-        Script       = Stats.ScriptMemoryUsageMb,
-        PhysicsParts = Stats.PhysicsPartsMemoryUsageMb,
-    }
-<span class="code-kw">end</span></div>
+          <div class="contract-system">
+            <div class="contract-system-name">Carry System</div>
+            <div class="contract-system-detail">When a player picks up or steals a brainrot, the model attaches above their head via RigidConstraint and follows them. Drops back to center on death or reset.</div>
+            <button class="snippet-toggle" onclick="toggleSnippet('snippet-carry', this)">view snippet</button>
+            <div class="code-snippet" id="snippet-carry"><span class="code-cmt">-- attach brainrot above player head using RigidConstraint</span>
+<span class="code-kw">local</span> primaryPart = clone.PrimaryPart <span class="code-kw">or</span> clone:<span class="code-fn">FindFirstChildOfClass</span>(<span class="code-str">"BasePart"</span>)
+primaryPart.CFrame = hrp.CFrame * CFrame.<span class="code-fn">new</span>(<span class="code-num">0</span>, <span class="code-num">5</span>, <span class="code-num">0</span>)
+
+<span class="code-kw">local</span> attachment0 = Instance.<span class="code-fn">new</span>(<span class="code-str">"Attachment"</span>)
+attachment0.Position = Vector3.<span class="code-fn">new</span>(<span class="code-num">0</span>, <span class="code-num">5</span>, <span class="code-num">0</span>)
+attachment0.Parent = hrp
+
+<span class="code-kw">local</span> attachment1 = Instance.<span class="code-fn">new</span>(<span class="code-str">"Attachment"</span>)
+attachment1.Parent = primaryPart
+
+<span class="code-kw">local</span> rigid = Instance.<span class="code-fn">new</span>(<span class="code-str">"RigidConstraint"</span>)
+rigid.Attachment0 = attachment0
+rigid.Attachment1 = attachment1
+rigid.Parent = primaryPart
+
+<span class="code-cmt">-- drop to center on death</span>
+humanoid.Died:<span class="code-fn">Connect</span>(<span class="code-kw">function</span>()
+    CarryManager.<span class="code-fn">DropToCenter</span>(player)
+<span class="code-kw">end</span>)</div>
           </div>
+
+          <div class="contract-system">
+            <div class="contract-system-name">Brainrot Stealing</div>
+            <div class="contract-system-detail">Players can steal placed brainrots from enemy bases. Hold-duration prompt, 5 minute global cooldown per thief, removes from victim's Owned and Placed, alerts victim via UI card.</div>
+            <button class="snippet-toggle" onclick="toggleSnippet('snippet-steal', this)">view snippet</button>
+            <div class="code-snippet" id="snippet-steal"><span class="code-cmt">-- validate steal attempt</span>
+<span class="code-kw">local</span> lastSteal = stealCooldowns[thief]
+<span class="code-kw">if</span> lastSteal <span class="code-kw">and</span> (os.<span class="code-fn">time</span>() - lastSteal) < STEAL_COOLDOWN <span class="code-kw">then</span> <span class="code-kw">return</span> <span class="code-kw">end</span>
+
+<span class="code-kw">local</span> entry = ownerPlaced[standId]
+<span class="code-kw">if not</span> entry <span class="code-kw">then</span> <span class="code-kw">return</span> <span class="code-kw">end</span>
+
+<span class="code-cmt">-- remove from owner</span>
+ownerPlaced[standId] = <span class="code-kw">nil</span>
+<span class="code-kw">for</span> i, ownedEntry <span class="code-kw">in</span> ipairs(ownerOwned) <span class="code-kw">do</span>
+    <span class="code-kw">if</span> ownedEntry.Name == entry.Name <span class="code-kw">then</span>
+        table.<span class="code-fn">remove</span>(ownerOwned, i)
+        <span class="code-kw">break</span>
+    <span class="code-kw">end</span>
+<span class="code-kw">end</span>
+
+stealCooldowns[thief] = os.<span class="code-fn">time</span>()
+CarryManager.<span class="code-fn">StartCarrying</span>(thief, entry.Name, entry.Mutation)
+BrainrotStolenAlert:<span class="code-fn">FireClient</span>(owner, { BrainrotName = entry.Name })</div>
+          </div>
+
+          <div class="contract-system">
+            <div class="contract-system-name">Stand Upgrade System</div>
+            <div class="contract-system-detail">Each stand upgrades up to level 20. Cost doubles per level. Income multiplier doubles per level (1x, 2x, 4x...). Updates live on the 3D upgrade card.</div>
+            <button class="snippet-toggle" onclick="toggleSnippet('snippet-upgrade', this)">view snippet</button>
+            <div class="code-snippet" id="snippet-upgrade"><span class="code-kw">local function</span> <span class="code-fn">getUpgradeCost</span>(currentLevel)
+    <span class="code-kw">return</span> BASE_COST * (<span class="code-num">2</span> ^ (currentLevel - <span class="code-num">1</span>))
+<span class="code-kw">end</span>
+
+<span class="code-kw">function</span> UpgradeManager.<span class="code-fn">GetMultiplier</span>(standLevel)
+    <span class="code-kw">return</span> <span class="code-num">2</span> ^ (standLevel - <span class="code-num">1</span>)
+<span class="code-kw">end</span>
+
+<span class="code-cmt">-- apply cost and save new level</span>
+<span class="code-kw">local</span> cost = <span class="code-fn">getUpgradeCost</span>(currentLevel)
+<span class="code-kw">if</span> data.Cash < cost <span class="code-kw">then</span> <span class="code-kw">return</span> <span class="code-kw">end</span>
+
+data.Cash -= cost
+data.StandLevels[standId] = currentLevel + <span class="code-num">1</span>
+UpgradeManager.<span class="code-fn">UpdateUpgradeCard</span>(standId)</div>
+          </div>
+
+          <div class="contract-system">
+            <div class="contract-system-name">Income + Offline Rewards</div>
+            <div class="contract-system-detail">Per-stand cash accumulation every second based on rarity and mutation. On rejoin, calculates time away and awards offline income. Capped at 24 hours.</div>
+          </div>
+
+          <div class="contract-system">
+            <div class="contract-system-name">CoinFlipGui UI</div>
+            <div class="contract-system-detail">Cartoony green card button with 3D shadow, bounce animations, and a result card that slides in from the top showing rarity color, brainrot name, and mutation.</div>
+          </div>
+
+          <div class="contract-system">
+            <div class="contract-system-name">Brainrot Animations</div>
+            <div class="contract-system-detail">Plays baked KeyframeSequence animations from AnimSaves folders inside each brainrot model. Works on all mutation variants automatically.</div>
+          </div>
+
         </div>
       </div>
       <div class="contract-emoji">🛡️</div>
@@ -994,9 +859,9 @@ data.lastPosition = currentPosition</div>
     <div class="featured-badge">★ FULL SOLO-DEVELOPED GAME</div>
     <div class="featured-inner">
       <div>
-        <div class="featured-title">Bug Fixer — Full Roblox Game</div>
+        <div class="featured-title">Bug Fixer - Full Roblox Game</div>
         <div class="featured-desc">
-          A complete solo-built Roblox game where players take contracts fixing bugs for in-game companies to earn money and progress their career. Built every system from scratch — architecture, security, UI, data, and game loop — all production-ready and exploit-safe.
+          A complete solo-built Roblox game where players take contracts fixing bugs for in-game companies to earn money and progress their career. Built every system from scratch - architecture, security, UI, data, and game loop - all production-ready and exploit-safe.
         </div>
         <div class="featured-systems">
           <div class="system-item">Global Leaderboard</div>
@@ -1055,7 +920,7 @@ data.lastPosition = currentPosition</div>
       <div>
         <div class="project-number">PROJECT 03</div>
         <div class="project-title">Tutorial & Arrow System</div>
-        <div class="project-desc">A 3-step guided tutorial system with a rotating arrow that always points toward the target — even pinning to the screen edge when off screen. Includes step progress tracker, completion popups, and auto-cleanup when finished.</div>
+        <div class="project-desc">A 3-step guided tutorial system with a rotating arrow that always points toward the target - even pinning to the screen edge when off screen. Includes step progress tracker, completion popups, and auto-cleanup when finished.</div>
         <div class="project-features">
           <span class="feature-tag">WorldToViewport</span>
           <span class="feature-tag">RunService</span>
@@ -1131,15 +996,15 @@ data.lastPosition = currentPosition</div>
 
   </div>
 
-  <!-- WHY I FIT THIS JOB -->
+  <!-- WHY I FIT -->
   <p class="section-title">why I fit secondary scripter roles</p>
   <div class="fit-section">
-    <div class="fit-title">I've built the whole stack — I can slot into yours.</div>
+    <div class="fit-title">I've built the whole stack - I can slot into yours.</div>
     <div class="fit-sub">// secondary scripting · bug fixes · small systems · clean documented code</div>
     <div class="fit-grid">
       <div class="fit-item">
         <strong>BUG FIXES</strong>
-        Shipped a full game solo — I've debugged everything from DataStore race conditions to client/server desync.
+        Shipped a full game solo - I've debugged everything from DataStore race conditions to client/server desync.
       </div>
       <div class="fit-item">
         <strong>DOCUMENTED CODE</strong>
@@ -1147,11 +1012,11 @@ data.lastPosition = currentPosition</div>
       </div>
       <div class="fit-item">
         <strong>WORKING IN FRAMEWORKS</strong>
-        I've designed my own architecture — adapting to an existing one is natural, not a challenge.
+        I've designed my own architecture - adapting to an existing one is natural, not a challenge.
       </div>
       <div class="fit-item">
         <strong>SMALL SYSTEMS</strong>
-        Daily rewards, tutorials, checkpoints, pickups — I've built a dozen self-contained systems, clean and reusable.
+        Daily rewards, tutorials, checkpoints, pickups - I've built a dozen self-contained systems, clean and reusable.
       </div>
       <div class="fit-item">
         <strong>ANTI-EXPLOIT</strong>
@@ -1168,7 +1033,7 @@ data.lastPosition = currentPosition</div>
   <div class="contact">
     <h2>Open for Commissions</h2>
     <p>Looking for clean, reliable scripting work. Fast turnaround, frequent updates, exploit-safe code.</p>
-    <div class="contact-note">💬 Add me on Discord — <strong>6fraid</strong> — send me your project details and I'll get back to you same day.</div>
+    <div class="contact-note">💬 Add me on Discord - <strong>6fraid</strong> - send me your project details and I'll get back to you same day.</div>
   </div>
 
 </div>
