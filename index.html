@@ -766,7 +766,7 @@ data.lastPosition = currentPosition</div>
 
           <div class="contract-system">
             <div class="contract-system-name">Carry System</div>
-            <div class="contract-system-detail">When a player picks up or steals a brainrot, the model attaches above their head via RigidConstraint and follows them. Drops back to center on death or reset.</div>
+            <div class="contract-system-detail">When a player picks up or steals a brainrot, the model attaches above their head via RigidConstraint and follows them. Drops back to center and removes from Owned on death.</div>
             <button class="snippet-toggle" onclick="toggleSnippet('snippet-carry', this)">view snippet</button>
             <div class="code-snippet" id="snippet-carry"><span class="code-cmt">-- attach brainrot above player head using RigidConstraint</span>
 <span class="code-kw">local</span> primaryPart = clone.PrimaryPart <span class="code-kw">or</span> clone:<span class="code-fn">FindFirstChildOfClass</span>(<span class="code-str">"BasePart"</span>)
@@ -784,7 +784,7 @@ rigid.Attachment0 = attachment0
 rigid.Attachment1 = attachment1
 rigid.Parent = primaryPart
 
-<span class="code-cmt">-- drop to center on death</span>
+<span class="code-cmt">-- drop to center and remove from Owned on death</span>
 humanoid.Died:<span class="code-fn">Connect</span>(<span class="code-kw">function</span>()
     CarryManager.<span class="code-fn">DropToCenter</span>(player)
 <span class="code-kw">end</span>)</div>
@@ -801,15 +801,16 @@ humanoid.Died:<span class="code-fn">Connect</span>(<span class="code-kw">functio
 <span class="code-kw">local</span> entry = ownerPlaced[standId]
 <span class="code-kw">if not</span> entry <span class="code-kw">then</span> <span class="code-kw">return</span> <span class="code-kw">end</span>
 
-<span class="code-cmt">-- remove from owner</span>
+<span class="code-cmt">-- remove from owner, add to thief, fire inventory updates to both</span>
 ownerPlaced[standId] = <span class="code-kw">nil</span>
 <span class="code-kw">for</span> i, ownedEntry <span class="code-kw">in</span> ipairs(ownerOwned) <span class="code-kw">do</span>
     <span class="code-kw">if</span> ownedEntry.Name == entry.Name <span class="code-kw">then</span>
-        table.<span class="code-fn">remove</span>(ownerOwned, i)
-        <span class="code-kw">break</span>
+        table.<span class="code-fn">remove</span>(ownerOwned, i) <span class="code-kw">break</span>
     <span class="code-kw">end</span>
 <span class="code-kw">end</span>
-
+thiefOwned[#thiefOwned + <span class="code-num">1</span>] = { Name = entry.Name, Mutation = entry.Mutation }
+InventoryUpdate:<span class="code-fn">FireClient</span>(owner, ownerOwned)
+InventoryUpdate:<span class="code-fn">FireClient</span>(thief, thiefOwned)
 stealCooldowns[thief] = os.<span class="code-fn">time</span>()
 CarryManager.<span class="code-fn">StartCarrying</span>(thief, entry.Name, entry.Mutation)
 BrainrotStolenAlert:<span class="code-fn">FireClient</span>(owner, { BrainrotName = entry.Name })</div>
@@ -839,6 +840,54 @@ UpgradeManager.<span class="code-fn">UpdateUpgradeCard</span>(standId)</div>
           <div class="contract-system">
             <div class="contract-system-name">Income + Offline Rewards</div>
             <div class="contract-system-detail">Per-stand cash accumulation every second based on rarity and mutation. On rejoin, calculates time away and awards offline income. Capped at 24 hours.</div>
+          </div>
+
+          <div class="contract-system">
+            <div class="contract-system-name">Admin System</div>
+            <div class="contract-system-detail">30+ commands including ban with expiry, kick, announce, forceluck, speed, goto, bring, freeze, giant, fling, resetdata, mutate, and runtime mod/admin grants. Scrollable GUI panel, session logs, and server-wide announcement banner.</div>
+            <button class="snippet-toggle" onclick="toggleSnippet('snippet-admin', this)">view snippet</button>
+            <div class="code-snippet" id="snippet-admin"><span class="code-cmt">-- ban command with duration parsing and datastore persistence</span>
+<span class="code-kw">local</span> duration = BAN_DURATIONS[durationArg]
+<span class="code-kw">local</span> expiry = duration == math.huge
+    <span class="code-kw">and</span> math.huge
+    <span class="code-kw">or</span>  os.<span class="code-fn">time</span>() + duration
+
+profile.Data.BanData = {
+    IsBanned = <span class="code-kw">true</span>,
+    Expiry   = expiry,
+    Reason   = reason,
+}
+
+<span class="code-kw">local</span> durationText = durationArg == <span class="code-str">"perm"</span>
+    <span class="code-kw">and</span> <span class="code-str">"permanently"</span>
+    <span class="code-kw">or</span>  <span class="code-str">"for "</span> .. durationArg
+
+SessionLogs.<span class="code-fn">LogPlayerAction</span>(target.Name, admin.Name,
+    <span class="code-str">"banned "</span> .. durationText .. <span class="code-str">": "</span> .. reason)
+<span class="code-fn">announceToAll</span>(target.Name .. <span class="code-str">" was banned. reason: "</span> .. reason)
+target:<span class="code-fn">Kick</span>(<span class="code-str">"you are banned. reason: "</span> .. reason)</div>
+          </div>
+
+          <div class="contract-system">
+            <div class="contract-system-name">Inventory & Hotbar System</div>
+            <div class="contract-system-detail">Full custom backpack replacement. Hotbar slots clone dynamically and destroy when empty. Backtick opens full inventory. Number keys 1-5 and clicks both equip/unequip. GUI refs re-fetched on every respawn.</div>
+            <button class="snippet-toggle" onclick="toggleSnippet('snippet-hotbar', this)">view snippet</button>
+            <div class="code-snippet" id="snippet-hotbar"><span class="code-cmt">-- clone slots dynamically, wire clicks, destroy when no longer needed</span>
+<span class="code-kw">local</span> needed = math.<span class="code-fn">min</span>(<span class="code-num">1</span> + #currentOwned, <span class="code-num">5</span>)
+<span class="code-kw">local</span> slots = <span class="code-fn">getSlots</span>()
+
+<span class="code-kw">while</span> #slots < needed <span class="code-kw">do</span>
+    <span class="code-kw">local</span> newSlot = slotTemp:<span class="code-fn">Clone</span>()
+    newSlot:<span class="code-fn">SetAttribute</span>(<span class="code-str">"ClickWired"</span>, <span class="code-kw">false</span>)
+    newSlot.Parent = slotsLayout
+    slots[#slots + <span class="code-num">1</span>] = newSlot
+<span class="code-kw">end</span>
+
+<span class="code-cmt">-- destroy extra slots beyond what we need</span>
+<span class="code-kw">local</span> currentSlots = <span class="code-fn">getSlots</span>()
+<span class="code-kw">for</span> i = needed + <span class="code-num">1</span>, #currentSlots <span class="code-kw">do</span>
+    currentSlots[i]:<span class="code-fn">Destroy</span>()
+<span class="code-kw">end</span></div>
           </div>
 
           <div class="contract-system">
