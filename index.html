@@ -625,7 +625,7 @@
   <section class="hero">
     <div class="hero-badge">available for commissions</div>
     <h1>6fraid<br><span>Scripter</span></h1>
-    <p class="hero-sub">3 years shipping clean, exploit-safe Roblox systems. Shipped 11 fully working systems for a live client contract in under 48 hours. Zero missed deadlines.</p>
+    <p class="hero-sub">3 years shipping clean, exploit-safe Roblox systems. Shipped 20+ fully working systems for a live client contract. Zero missed deadlines.</p>
     <div class="hero-tags">
       <span class="tag">Lua / Luau</span>
       <span class="tag">RemoteEvents</span>
@@ -634,6 +634,7 @@
       <span class="tag">Server Security</span>
       <span class="tag">Global Leaderboards</span>
       <span class="tag">Economy Systems</span>
+      <span class="tag">Shop Systems</span>
       <span class="tag">Roblox Studio</span>
     </div>
   </section>
@@ -647,7 +648,7 @@
       <div class="stat-label">years experience</div>
     </div>
     <div class="stat-card">
-      <div class="stat-number">25+</div>
+      <div class="stat-number">35+</div>
       <div class="stat-label">systems built</div>
     </div>
     <div class="stat-card">
@@ -715,12 +716,12 @@
         <div class="contract-title">Nebulark Inc.</div>
         <div class="contract-role">// secondary scripter · anticheat · economy · gameplay systems · Mar 2026 - ongoing</div>
         <div style="display: flex; gap: 10px; flex-wrap: wrap; margin: 12px 0;">
-          <div style="background: rgba(124,255,107,0.1); border: 1px solid rgba(124,255,107,0.3); border-radius: 8px; padding: 6px 14px; font-family: 'DM Mono', monospace; font-size: 12px; color: #7cff6b;">11 systems in 48hrs</div>
+          <div style="background: rgba(124,255,107,0.1); border: 1px solid rgba(124,255,107,0.3); border-radius: 8px; padding: 6px 14px; font-family: 'DM Mono', monospace; font-size: 12px; color: #7cff6b;">20+ systems delivered</div>
           <div style="background: rgba(79,158,255,0.1); border: 1px solid rgba(79,158,255,0.3); border-radius: 8px; padding: 6px 14px; font-family: 'DM Mono', monospace; font-size: 12px; color: #4f9eff;">2 games simultaneously</div>
           <div style="background: rgba(255,209,102,0.1); border: 1px solid rgba(255,209,102,0.3); border-radius: 8px; padding: 6px 14px; font-family: 'DM Mono', monospace; font-size: 12px; color: #ffd166;">active contract</div>
         </div>
         <div class="contract-desc">
-          Brought on as secondary scripter across two Roblox games in active development. Shipped 11 fully working production systems in under 48 hours while integrating into an existing codebase and Team Create environment. Responsible for the full idle game economy, all gameplay systems, anticheat, and UI across both projects.
+          Brought on as secondary scripter across two Roblox games in active development. Shipped 20+ fully working production systems while integrating into an existing codebase and Team Create environment. Responsible for the full idle game economy, all gameplay systems, anticheat, shop systems, global leaderboards, and UI across both projects.
         </div>
         <div class="contract-systems-title">completed deliverables</div>
         <div class="contract-systems">
@@ -744,24 +745,115 @@ data.lastPosition = currentPosition</div>
 
           <div class="contract-system">
             <div class="contract-system-name">Coin Flip System</div>
-            <div class="contract-system-detail">Server-side rarity rolling with weighted random, mutation system, and brainrot spawning at a central area via raycast ground detection.</div>
+            <div class="contract-system-detail">Server-side rarity rolling with weighted random, per-coin mutation weights, and brainrot spawning via raycast ground detection. Server debounce scales with player's actual coin cooldown.</div>
             <button class="snippet-toggle" onclick="toggleSnippet('snippet-coinflip', this)">view snippet</button>
-            <div class="code-snippet" id="snippet-coinflip"><span class="code-kw">local function</span> <span class="code-fn">chooseRarity</span>(coinType)
+            <div class="code-snippet" id="snippet-coinflip"><span class="code-kw">local function</span> <span class="code-fn">chooseRarity</span>(coinType, player)
     <span class="code-kw">local</span> weights = Config.Coins[coinType] <span class="code-kw">or</span> Config.Coins.Basic
     <span class="code-kw">local</span> total = <span class="code-num">0</span>
-    <span class="code-kw">for</span> _, w <span class="code-kw">in</span> pairs(weights) <span class="code-kw">do</span>
-        total += w
-    <span class="code-kw">end</span>
+    <span class="code-kw">for</span> _, w <span class="code-kw">in</span> pairs(weights) <span class="code-kw">do</span> total += w <span class="code-kw">end</span>
     <span class="code-kw">local</span> roll = rng:<span class="code-fn">NextNumber</span>(<span class="code-num">0</span>, total)
     <span class="code-kw">local</span> cumulative = <span class="code-num">0</span>
     <span class="code-kw">for</span> _, tier <span class="code-kw">in</span> ipairs(Config.Rarity.TierOrder) <span class="code-kw">do</span>
         cumulative += (weights[tier] <span class="code-kw">or</span> <span class="code-num">0</span>)
-        <span class="code-kw">if</span> roll <= cumulative <span class="code-kw">then</span>
-            <span class="code-kw">return</span> tier
-        <span class="code-kw">end</span>
+        <span class="code-kw">if</span> roll <= cumulative <span class="code-kw">then return</span> tier <span class="code-kw">end</span>
     <span class="code-kw">end</span>
     <span class="code-kw">return</span> <span class="code-str">"Common"</span>
-<span class="code-kw">end</span></div>
+<span class="code-kw">end</span>
+
+<span class="code-cmt">-- debounce scales with actual player cooldown</span>
+<span class="code-kw">local</span> baseCd = coinCooldowns[coinType] <span class="code-kw">or</span> <span class="code-num">5</span>
+<span class="code-kw">local</span> actualCd = baseCd * ShopUpgradeManager.<span class="code-fn">GetRollingMultiplier</span>(player)
+flipDebounce[player] = <span class="code-kw">true</span>
+task.<span class="code-fn">delay</span>(actualCd, <span class="code-kw">function</span>() flipDebounce[player] = <span class="code-kw">nil</span> <span class="code-kw">end</span>)</div>
+          </div>
+
+          <div class="contract-system">
+            <div class="contract-system-name">Coin Shop System</div>
+            <div class="contract-system-detail">17 coins with sequential purchasing enforced on both client and server. Each coin has unique rarity weights, mutation chances, and cooldown values. Tool meshes swap in backpack on purchase. Persists across sessions.</div>
+            <button class="snippet-toggle" onclick="toggleSnippet('snippet-coinshop', this)">view snippet</button>
+            <div class="code-snippet" id="snippet-coinshop"><span class="code-cmt">-- sequential purchase validation</span>
+<span class="code-kw">if</span> newIndex ~= currentIndex + <span class="code-num">1</span> <span class="code-kw">then</span>
+    <span class="code-kw">return false</span>, <span class="code-str">"must buy coins in order"</span>
+<span class="code-kw">end</span>
+<span class="code-kw">if</span> profile.Data.Cash < coinDef.Price <span class="code-kw">then</span>
+    <span class="code-kw">return false</span>, <span class="code-str">"not enough cash"</span>
+<span class="code-kw">end</span>
+
+profile.Data.Cash -= coinDef.Price
+profile.Data.CurrentCoin = coinName
+
+<span class="code-cmt">-- swap tool in backpack server-side</span>
+<span class="code-kw">for</span> _, tool <span class="code-kw">in</span> ipairs(backpack:<span class="code-fn">GetChildren</span>()) <span class="code-kw">do</span>
+    <span class="code-kw">if</span> tool:<span class="code-fn">IsA</span>(<span class="code-str">"Tool"</span>) <span class="code-kw">and</span> tool.Name:<span class="code-fn">match</span>(<span class="code-str">"Coin$"</span>) <span class="code-kw">then</span>
+        tool:<span class="code-fn">Destroy</span>()
+    <span class="code-kw">end</span>
+<span class="code-kw">end</span>
+coinToolsFolder:<span class="code-fn">FindFirstChild</span>(coinName .. <span class="code-str">"Coin"</span>):<span class="code-fn">Clone</span>().Parent = backpack</div>
+          </div>
+
+          <div class="contract-system">
+            <div class="contract-system-name">Upgrade Shop System</div>
+            <div class="contract-system-detail">Carry Speed and Rolling Speed upgrades, 10 tiers each. Carry speed slows player while holding a brainrot and upgrades restore and exceed normal speed. Rolling speed multiplier reduces coin flip cooldown server-side.</div>
+            <button class="snippet-toggle" onclick="toggleSnippet('snippet-upgradeshop', this)">view snippet</button>
+            <div class="code-snippet" id="snippet-upgradeshop"><span class="code-cmt">-- rolling multiplier applied server-side to actual debounce</span>
+<span class="code-kw">local</span> ROLLING_MULTIPLIERS = {
+    [<span class="code-num">0</span>]=<span class="code-num">1.6</span>, [<span class="code-num">1</span>]=<span class="code-num">1.5</span>, [<span class="code-num">2</span>]=<span class="code-num">1.4</span>, [<span class="code-num">3</span>]=<span class="code-num">1.3</span>, [<span class="code-num">4</span>]=<span class="code-num">1.2</span>,
+    [<span class="code-num">5</span>]=<span class="code-num">1.1</span>, [<span class="code-num">6</span>]=<span class="code-num">1.0</span>, [<span class="code-num">7</span>]=<span class="code-num">0.85</span>, [<span class="code-num">8</span>]=<span class="code-num">0.75</span>, [<span class="code-num">9</span>]=<span class="code-num">0.65</span>, [<span class="code-num">10</span>]=<span class="code-num">0.5</span>,
+}
+
+<span class="code-cmt">-- carry speed applied to humanoid on equip/unequip</span>
+<span class="code-kw">local</span> CARRY_SPEEDS = {
+    [<span class="code-num">0</span>]=<span class="code-num">8</span>, [<span class="code-num">1</span>]=<span class="code-num">10</span>, [<span class="code-num">2</span>]=<span class="code-num">12</span>, [<span class="code-num">3</span>]=<span class="code-num">14</span>, [<span class="code-num">4</span>]=<span class="code-num">16</span>,
+    [<span class="code-num">5</span>]=<span class="code-num">18</span>, [<span class="code-num">6</span>]=<span class="code-num">21</span>, [<span class="code-num">7</span>]=<span class="code-num">24</span>, [<span class="code-num">8</span>]=<span class="code-num">27</span>, [<span class="code-num">9</span>]=<span class="code-num">30</span>, [<span class="code-num">10</span>]=<span class="code-num">35</span>,
+}
+humanoid.WalkSpeed = isCarrying
+    <span class="code-kw">and</span> (CARRY_SPEEDS[carrySpeedLevel] <span class="code-kw">or</span> <span class="code-num">8</span>)
+    <span class="code-kw">or</span> <span class="code-num">16</span></div>
+          </div>
+
+          <div class="contract-system">
+            <div class="contract-system-name">Sell Shop System</div>
+            <div class="contract-system-detail">Proximity-prompted NPC opens a scrollable sell shop listing all unplaced brainrots with rarity, mutation, and sell value. Supports individual sell and sell-all. Persists correctly across respawns.</div>
+            <button class="snippet-toggle" onclick="toggleSnippet('snippet-sellshop', this)">view snippet</button>
+            <div class="code-snippet" id="snippet-sellshop"><span class="code-kw">local function</span> <span class="code-fn">getSellValue</span>(brainrotName, mutation)
+    <span class="code-kw">local</span> rarity = CONFIG[brainrotName] <span class="code-kw">or</span> <span class="code-str">"Common"</span>
+    <span class="code-kw">local</span> base = SELL_VALUES[rarity] <span class="code-kw">or</span> <span class="code-num">250</span>
+    <span class="code-kw">local</span> multiplier = MUTATION_MULTIPLIERS[mutation] <span class="code-kw">or</span> <span class="code-num">1</span>
+    <span class="code-kw">return</span> base * multiplier
+<span class="code-kw">end</span>
+
+<span class="code-cmt">-- sell all unplaced brainrots at once</span>
+SellAllBrainrots.OnServerEvent:<span class="code-fn">Connect</span>(<span class="code-kw">function</span>(player)
+    <span class="code-kw">local</span> owned = profile.Data.Brainrots.Owned
+    <span class="code-kw">local</span> total = <span class="code-num">0</span>
+    <span class="code-kw">for</span> _, entry <span class="code-kw">in</span> ipairs(owned) <span class="code-kw">do</span>
+        <span class="code-kw">if not</span> placed[entry.Name] <span class="code-kw">then</span>
+            total += <span class="code-fn">getSellValue</span>(entry.Name, entry.Mutation)
+        <span class="code-kw">end</span>
+    <span class="code-kw">end</span>
+    profile.Data.Cash += total
+<span class="code-kw">end</span>)</div>
+          </div>
+
+          <div class="contract-system">
+            <div class="contract-system-name">Global Leaderboards</div>
+            <div class="contract-system-detail">4 in-world leaderboards displaying top 10 players globally. Top Cash, Top Flips, Top Earnings ($/s from placed brainrots), and Top Robux Spent. SurfaceGui rendered on 3D board parts, refreshes every 60 seconds. Gold/silver/bronze top 3 colors.</div>
+            <button class="snippet-toggle" onclick="toggleSnippet('snippet-leaderboard', this)">view snippet</button>
+            <div class="code-snippet" id="snippet-leaderboard"><span class="code-cmt">-- fetch top 10 and render to SurfaceGui on board part</span>
+<span class="code-kw">local function</span> <span class="code-fn">updateLeaderboard</span>(lb)
+    <span class="code-kw">local</span> page = lb.store:<span class="code-fn">GetSortedAsync</span>(<span class="code-kw">false</span>, <span class="code-num">10</span>):<span class="code-fn">GetCurrentPage</span>()
+    <span class="code-kw">for</span> i, entry <span class="code-kw">in</span> ipairs(page) <span class="code-kw">do</span>
+        <span class="code-kw">local</span> name = Players:<span class="code-fn">GetNameFromUserIdAsync</span>(tonumber(entry.key))
+        <span class="code-cmt">-- rank label: gold #1, silver #2, bronze #3</span>
+        rank.TextColor3 = i == <span class="code-num">1</span> <span class="code-kw">and</span> Color3.<span class="code-fn">fromRGB</span>(<span class="code-num">255</span>,<span class="code-num">215</span>,<span class="code-num">0</span>)
+            <span class="code-kw">or</span> i == <span class="code-num">2</span> <span class="code-kw">and</span> Color3.<span class="code-fn">fromRGB</span>(<span class="code-num">192</span>,<span class="code-num">192</span>,<span class="code-num">192</span>)
+            <span class="code-kw">or</span> i == <span class="code-num">3</span> <span class="code-kw">and</span> Color3.<span class="code-fn">fromRGB</span>(<span class="code-num">205</span>,<span class="code-num">127</span>,<span class="code-num">50</span>)
+            <span class="code-kw">or</span> Color3.<span class="code-fn">new</span>(<span class="code-num">1</span>,<span class="code-num">1</span>,<span class="code-num">1</span>)
+    <span class="code-kw">end</span>
+<span class="code-kw">end</span>
+
+<span class="code-cmt">-- sync stat to OrderedDataStore on every claim</span>
+TotalEarnedStore:<span class="code-fn">SetAsync</span>(tostring(player.UserId), profile.Data.TotalEarned)</div>
           </div>
 
           <div class="contract-system">
@@ -772,16 +864,16 @@ data.lastPosition = currentPosition</div>
 <span class="code-kw">local</span> primaryPart = clone.PrimaryPart <span class="code-kw">or</span> clone:<span class="code-fn">FindFirstChildOfClass</span>(<span class="code-str">"BasePart"</span>)
 primaryPart.CFrame = hrp.CFrame * CFrame.<span class="code-fn">new</span>(<span class="code-num">0</span>, <span class="code-num">5</span>, <span class="code-num">0</span>)
 
-<span class="code-kw">local</span> attachment0 = Instance.<span class="code-fn">new</span>(<span class="code-str">"Attachment"</span>)
-attachment0.Position = Vector3.<span class="code-fn">new</span>(<span class="code-num">0</span>, <span class="code-num">5</span>, <span class="code-num">0</span>)
-attachment0.Parent = hrp
+<span class="code-kw">local</span> a0 = Instance.<span class="code-fn">new</span>(<span class="code-str">"Attachment"</span>)
+a0.Position = Vector3.<span class="code-fn">new</span>(<span class="code-num">0</span>, <span class="code-num">5</span>, <span class="code-num">0</span>)
+a0.Parent = hrp
 
-<span class="code-kw">local</span> attachment1 = Instance.<span class="code-fn">new</span>(<span class="code-str">"Attachment"</span>)
-attachment1.Parent = primaryPart
+<span class="code-kw">local</span> a1 = Instance.<span class="code-fn">new</span>(<span class="code-str">"Attachment"</span>)
+a1.Parent = primaryPart
 
 <span class="code-kw">local</span> rigid = Instance.<span class="code-fn">new</span>(<span class="code-str">"RigidConstraint"</span>)
-rigid.Attachment0 = attachment0
-rigid.Attachment1 = attachment1
+rigid.Attachment0 = a0
+rigid.Attachment1 = a1
 rigid.Parent = primaryPart
 
 <span class="code-cmt">-- drop to center and remove from Owned on death</span>
@@ -796,21 +888,19 @@ humanoid.Died:<span class="code-fn">Connect</span>(<span class="code-kw">functio
             <button class="snippet-toggle" onclick="toggleSnippet('snippet-steal', this)">view snippet</button>
             <div class="code-snippet" id="snippet-steal"><span class="code-cmt">-- validate steal attempt</span>
 <span class="code-kw">local</span> lastSteal = stealCooldowns[thief]
-<span class="code-kw">if</span> lastSteal <span class="code-kw">and</span> (os.<span class="code-fn">time</span>() - lastSteal) < STEAL_COOLDOWN <span class="code-kw">then</span> <span class="code-kw">return</span> <span class="code-kw">end</span>
+<span class="code-kw">if</span> lastSteal <span class="code-kw">and</span> (os.<span class="code-fn">time</span>() - lastSteal) < STEAL_COOLDOWN <span class="code-kw">then return end</span>
 
 <span class="code-kw">local</span> entry = ownerPlaced[standId]
-<span class="code-kw">if not</span> entry <span class="code-kw">then</span> <span class="code-kw">return</span> <span class="code-kw">end</span>
+<span class="code-kw">if not</span> entry <span class="code-kw">then return end</span>
 
 <span class="code-cmt">-- remove from owner, add to thief, fire inventory updates to both</span>
 ownerPlaced[standId] = <span class="code-kw">nil</span>
-<span class="code-kw">for</span> i, ownedEntry <span class="code-kw">in</span> ipairs(ownerOwned) <span class="code-kw">do</span>
-    <span class="code-kw">if</span> ownedEntry.Name == entry.Name <span class="code-kw">then</span>
+<span class="code-kw">for</span> i, e <span class="code-kw">in</span> ipairs(ownerOwned) <span class="code-kw">do</span>
+    <span class="code-kw">if</span> e.Name == entry.Name <span class="code-kw">then</span>
         table.<span class="code-fn">remove</span>(ownerOwned, i) <span class="code-kw">break</span>
     <span class="code-kw">end</span>
 <span class="code-kw">end</span>
 thiefOwned[#thiefOwned + <span class="code-num">1</span>] = { Name = entry.Name, Mutation = entry.Mutation }
-InventoryUpdate:<span class="code-fn">FireClient</span>(owner, ownerOwned)
-InventoryUpdate:<span class="code-fn">FireClient</span>(thief, thiefOwned)
 stealCooldowns[thief] = os.<span class="code-fn">time</span>()
 CarryManager.<span class="code-fn">StartCarrying</span>(thief, entry.Name, entry.Mutation)
 BrainrotStolenAlert:<span class="code-fn">FireClient</span>(owner, { BrainrotName = entry.Name })</div>
@@ -819,8 +909,8 @@ BrainrotStolenAlert:<span class="code-fn">FireClient</span>(owner, { BrainrotNam
           <div class="contract-system">
             <div class="contract-system-name">Stand Upgrade System</div>
             <div class="contract-system-detail">Each stand upgrades up to level 20. Cost doubles per level. Income multiplier doubles per level (1x, 2x, 4x...). Updates live on the 3D upgrade card.</div>
-            <button class="snippet-toggle" onclick="toggleSnippet('snippet-upgrade', this)">view snippet</button>
-            <div class="code-snippet" id="snippet-upgrade"><span class="code-kw">local function</span> <span class="code-fn">getUpgradeCost</span>(currentLevel)
+            <button class="snippet-toggle" onclick="toggleSnippet('snippet-standupgrade', this)">view snippet</button>
+            <div class="code-snippet" id="snippet-standupgrade"><span class="code-kw">local function</span> <span class="code-fn">getUpgradeCost</span>(currentLevel)
     <span class="code-kw">return</span> BASE_COST * (<span class="code-num">2</span> ^ (currentLevel - <span class="code-num">1</span>))
 <span class="code-kw">end</span>
 
@@ -828,10 +918,8 @@ BrainrotStolenAlert:<span class="code-fn">FireClient</span>(owner, { BrainrotNam
     <span class="code-kw">return</span> <span class="code-num">2</span> ^ (standLevel - <span class="code-num">1</span>)
 <span class="code-kw">end</span>
 
-<span class="code-cmt">-- apply cost and save new level</span>
 <span class="code-kw">local</span> cost = <span class="code-fn">getUpgradeCost</span>(currentLevel)
-<span class="code-kw">if</span> data.Cash < cost <span class="code-kw">then</span> <span class="code-kw">return</span> <span class="code-kw">end</span>
-
+<span class="code-kw">if</span> data.Cash < cost <span class="code-kw">then return end</span>
 data.Cash -= cost
 data.StandLevels[standId] = currentLevel + <span class="code-num">1</span>
 UpgradeManager.<span class="code-fn">UpdateUpgradeCard</span>(standId)</div>
@@ -840,6 +928,21 @@ UpgradeManager.<span class="code-fn">UpdateUpgradeCard</span>(standId)</div>
           <div class="contract-system">
             <div class="contract-system-name">Income + Offline Rewards</div>
             <div class="contract-system-detail">Per-stand cash accumulation every second based on rarity and mutation. On rejoin, calculates time away and awards offline income. Capped at 24 hours.</div>
+            <button class="snippet-toggle" onclick="toggleSnippet('snippet-income', this)">view snippet</button>
+            <div class="code-snippet" id="snippet-income"><span class="code-kw">local function</span> <span class="code-fn">getRatePerSecond</span>(brainrotName, mutation, standLevel)
+    <span class="code-kw">local</span> rarity = Config.Brainrots[brainrotName] <span class="code-kw">or</span> <span class="code-str">"Common"</span>
+    <span class="code-kw">local</span> baseRate = RARITY_RATES[rarity] <span class="code-kw">or</span> <span class="code-num">10</span>
+    <span class="code-kw">local</span> multiplier = MUTATION_MULTIPLIERS[mutation] <span class="code-kw">or</span> <span class="code-num">1</span>
+    <span class="code-kw">local</span> standMult = UpgradeManager.<span class="code-fn">GetMultiplier</span>(standLevel <span class="code-kw">or</span> <span class="code-num">1</span>)
+    <span class="code-kw">return</span> (baseRate * multiplier * standMult) / <span class="code-num">60</span>
+<span class="code-kw">end</span>
+
+<span class="code-cmt">-- offline income on rejoin, capped at 24 hours</span>
+<span class="code-kw">local</span> elapsed = math.<span class="code-fn">min</span>(os.<span class="code-fn">time</span>() - lastSeen, <span class="code-num">86400</span>)
+<span class="code-kw">for</span> standId, entry <span class="code-kw">in</span> pairs(placed) <span class="code-kw">do</span>
+    <span class="code-kw">local</span> rate = <span class="code-fn">getRatePerSecond</span>(entry.Name, entry.Mutation, standLevels[standId])
+    earnings[standId].offline += rate * elapsed
+<span class="code-kw">end</span></div>
           </div>
 
           <div class="contract-system">
@@ -857,10 +960,6 @@ profile.Data.BanData = {
     Expiry   = expiry,
     Reason   = reason,
 }
-
-<span class="code-kw">local</span> durationText = durationArg == <span class="code-str">"perm"</span>
-    <span class="code-kw">and</span> <span class="code-str">"permanently"</span>
-    <span class="code-kw">or</span>  <span class="code-str">"for "</span> .. durationArg
 
 SessionLogs.<span class="code-fn">LogPlayerAction</span>(target.Name, admin.Name,
     <span class="code-str">"banned "</span> .. durationText .. <span class="code-str">": "</span> .. reason)
@@ -883,7 +982,6 @@ target:<span class="code-fn">Kick</span>(<span class="code-str">"you are banned.
     slots[#slots + <span class="code-num">1</span>] = newSlot
 <span class="code-kw">end</span>
 
-<span class="code-cmt">-- destroy extra slots beyond what we need</span>
 <span class="code-kw">local</span> currentSlots = <span class="code-fn">getSlots</span>()
 <span class="code-kw">for</span> i = needed + <span class="code-num">1</span>, #currentSlots <span class="code-kw">do</span>
     currentSlots[i]:<span class="code-fn">Destroy</span>()
@@ -892,7 +990,7 @@ target:<span class="code-fn">Kick</span>(<span class="code-str">"you are banned.
 
           <div class="contract-system">
             <div class="contract-system-name">CoinFlipGui UI</div>
-            <div class="contract-system-detail">Cartoony green card button with 3D shadow, bounce animations, and a result card that slides in from the top showing rarity color, brainrot name, and mutation.</div>
+            <div class="contract-system-detail">Cartoony green card button with 3D shadow, bounce animations, and a result card that slides in from the top showing rarity color, brainrot name, and mutation. Flip notifications replace each other instead of queuing.</div>
           </div>
 
           <div class="contract-system">
@@ -1058,7 +1156,7 @@ target:<span class="code-fn">Kick</span>(<span class="code-str">"you are banned.
     <div class="fit-grid">
       <div class="fit-item">
         <strong>PROVEN SPEED</strong>
-        Shipped 11 fully working systems across 2 games in under 48 hours on a live client contract. Not prototypes — production-ready, tested, and documented.
+        Shipped 20+ fully working systems across 2 games on a live client contract. Not prototypes — production-ready, tested, and documented.
       </div>
       <div class="fit-item">
         <strong>CODEBASE READY</strong>
@@ -1073,8 +1171,8 @@ target:<span class="code-fn">Kick</span>(<span class="code-str">"you are banned.
         Server-side validation, rate limiting, and sanity checks on every system. Security is never bolted on after — it's built in from the start.
       </div>
       <div class="fit-item">
-        <strong>25+ SYSTEMS BUILT</strong>
-        Economy, combat, UI, anticheat, leaderboards, carry systems, upgrades — I've built it all and have the code to show for it.
+        <strong>35+ SYSTEMS BUILT</strong>
+        Economy, combat, UI, anticheat, leaderboards, carry systems, shop systems, upgrades — I've built it all and have the code to show for it.
       </div>
       <div class="fit-item">
         <strong>ZERO MISSED DEADLINES</strong>
@@ -1086,7 +1184,7 @@ target:<span class="code-fn">Kick</span>(<span class="code-str">"you are banned.
   <!-- CONTACT -->
   <div class="contact">
     <h2>Let's Work Together</h2>
-    <p>11 systems in 48 hours. Zero missed deadlines. Production-ready code on every delivery. If you need a scripter who gets things done, that's me.</p>
+    <p>20+ systems delivered. Zero missed deadlines. Production-ready code on every delivery. If you need a scripter who gets things done, that's me.</p>
     <div class="contact-note">💬 Discord: <strong>6fraid</strong> — send your project details and I'll get back to you same day.</div>
   </div>
 
