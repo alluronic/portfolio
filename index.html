@@ -625,7 +625,7 @@
   <section class="hero">
     <div class="hero-badge">available for commissions</div>
     <h1>6fraid<br><span>Scripter</span></h1>
-    <p class="hero-sub">3 years shipping clean, exploit-safe Roblox systems. Shipped 20+ fully working systems for a live client contract. Zero missed deadlines.</p>
+    <p class="hero-sub">3 years shipping clean, exploit-safe Roblox systems. Shipped 40+ fully working systems for a live client contract. Zero missed deadlines.</p>
     <div class="hero-tags">
       <span class="tag">Lua / Luau</span>
       <span class="tag">RemoteEvents</span>
@@ -648,7 +648,7 @@
       <div class="stat-label">years experience</div>
     </div>
     <div class="stat-card">
-      <div class="stat-number">35+</div>
+      <div class="stat-number">40+</div>
       <div class="stat-label">systems built</div>
     </div>
     <div class="stat-card">
@@ -716,12 +716,12 @@
         <div class="contract-title">Nebulark Inc.</div>
         <div class="contract-role">// secondary scripter · anticheat · economy · gameplay systems · Mar 2026 - ongoing</div>
         <div style="display: flex; gap: 10px; flex-wrap: wrap; margin: 12px 0;">
-          <div style="background: rgba(124,255,107,0.1); border: 1px solid rgba(124,255,107,0.3); border-radius: 8px; padding: 6px 14px; font-family: 'DM Mono', monospace; font-size: 12px; color: #7cff6b;">20+ systems delivered</div>
+          <div style="background: rgba(124,255,107,0.1); border: 1px solid rgba(124,255,107,0.3); border-radius: 8px; padding: 6px 14px; font-family: 'DM Mono', monospace; font-size: 12px; color: #7cff6b;">40+ systems delivered</div>
           <div style="background: rgba(79,158,255,0.1); border: 1px solid rgba(79,158,255,0.3); border-radius: 8px; padding: 6px 14px; font-family: 'DM Mono', monospace; font-size: 12px; color: #4f9eff;">2 games simultaneously</div>
           <div style="background: rgba(255,209,102,0.1); border: 1px solid rgba(255,209,102,0.3); border-radius: 8px; padding: 6px 14px; font-family: 'DM Mono', monospace; font-size: 12px; color: #ffd166;">active contract</div>
         </div>
         <div class="contract-desc">
-          Brought on as secondary scripter across two Roblox games in active development. Shipped 20+ fully working production systems while integrating into an existing codebase and Team Create environment. Responsible for the full idle game economy, all gameplay systems, anticheat, shop systems, global leaderboards, and UI across both projects.
+          Brought on as secondary scripter across two Roblox games in active development. Shipped 40+ fully working production systems while integrating into an existing codebase and Team Create environment. Responsible for the full idle game economy, all gameplay systems, anticheat, shop systems, global leaderboards, and UI across both projects.
         </div>
         <div class="contract-systems-title">completed deliverables</div>
         <div class="contract-systems">
@@ -907,6 +907,32 @@ BrainrotStolenAlert:<span class="code-fn">FireClient</span>(owner, { BrainrotNam
           </div>
 
           <div class="contract-system">
+            <div class="contract-system-name">Steal Costs Robux</div>
+            <div class="contract-system-detail">Stealing now gates behind a per-rarity Robux developer product. Hold prompt triggers MarketplaceService purchase. Server stores pending steal with 120s expiry. ExecuteSteal validates rarity product match before transferring.</div>
+            <button class="snippet-toggle" onclick="toggleSnippet('snippet-stealrobux', this)">view snippet</button>
+            <div class="code-snippet" id="snippet-stealrobux"><span class="code-kw">local</span> STEAL_PRODUCT_IDS = {
+    Common = <span class="code-num">3560082401</span>, Rare = <span class="code-num">3560082398</span>, Epic = <span class="code-num">3560082399</span>,
+    Legendary = <span class="code-num">3560082397</span>, Mythic = <span class="code-num">3560082396</span>,
+    Secret = <span class="code-num">3560082394</span>, Celestial = <span class="code-num">3560082395</span>,
+}
+
+<span class="code-cmt">-- on hold prompt: look up rarity, store pending, fire purchase prompt</span>
+<span class="code-kw">local</span> rarity = Config.Brainrots[entry.Name].Rarity
+<span class="code-kw">local</span> productId = STEAL_PRODUCT_IDS[rarity]
+pendingStealByPlayer[thief] = {
+    standId = standId,
+    expiresAt = os.<span class="code-fn">clock</span>() + <span class="code-num">120</span>,
+}
+MarketplaceService:<span class="code-fn">PromptProductPurchase</span>(thief, productId)
+
+<span class="code-cmt">-- ProcessReceipt routes to ExecuteSteal via runner callback</span>
+<span class="code-kw">elseif</span> GamePassConfig.StealProductIds[receiptInfo.ProductId] <span class="code-kw">then</span>
+    <span class="code-kw">if</span> stealHandler <span class="code-kw">then</span>
+        granted = <span class="code-fn">stealHandler</span>(purchaser, receiptInfo.ProductId)
+    <span class="code-kw">end</span></div>
+          </div>
+
+          <div class="contract-system">
             <div class="contract-system-name">Stand Upgrade System</div>
             <div class="contract-system-detail">Each stand upgrades up to level 20. Cost doubles per level. Income multiplier doubles per level (1x, 2x, 4x...). Updates live on the 3D upgrade card.</div>
             <button class="snippet-toggle" onclick="toggleSnippet('snippet-standupgrade', this)">view snippet</button>
@@ -943,6 +969,39 @@ UpgradeManager.<span class="code-fn">UpdateUpgradeCard</span>(standId)</div>
     <span class="code-kw">local</span> rate = <span class="code-fn">getRatePerSecond</span>(entry.Name, entry.Mutation, standLevels[standId])
     earnings[standId].offline += rate * elapsed
 <span class="code-kw">end</span></div>
+          </div>
+
+          <div class="contract-system">
+            <div class="contract-system-name">Money Notification Popup</div>
+            <div class="contract-system-detail">When a player claims a pad, a compact payout amount fades in above the HUD (+1.2M, +987,384 etc). Cancels any running fade if claimed again quickly. Hidden on spawn and respawn via init function.</div>
+            <button class="snippet-toggle" onclick="toggleSnippet('snippet-moneynotif', this)">view snippet</button>
+            <div class="code-snippet" id="snippet-moneynotif"><span class="code-kw">local function</span> <span class="code-fn">formatPayout</span>(n)
+    <span class="code-kw">if</span> n >= <span class="code-num">1e6</span> <span class="code-kw">then</span>
+        <span class="code-kw">local</span> val = n / <span class="code-num">1e6</span>
+        <span class="code-kw">return</span> val == math.<span class="code-fn">floor</span>(val)
+            <span class="code-kw">and</span> string.<span class="code-fn">format</span>(<span class="code-str">"+%dM"</span>, val)
+            <span class="code-kw">or</span>  string.<span class="code-fn">format</span>(<span class="code-str">"+%.1fM"</span>, val)
+    <span class="code-kw">elseif</span> n >= <span class="code-num">1e3</span> <span class="code-kw">then</span>
+        <span class="code-kw">if</span> n < <span class="code-num">100000</span> <span class="code-kw">then</span>
+            <span class="code-kw">local</span> s = tostring(math.<span class="code-fn">floor</span>(n))
+            <span class="code-kw">return</span> <span class="code-str">"+"</span> .. s:<span class="code-fn">reverse</span>():<span class="code-fn">gsub</span>(<span class="code-str">"(%d%d%d)"</span>, <span class="code-str">"%1,"</span>):<span class="code-fn">reverse</span>():<span class="code-fn">gsub</span>(<span class="code-str">"^,"</span>, <span class="code-str">""</span>)
+        <span class="code-kw">end</span>
+        <span class="code-kw">return</span> string.<span class="code-fn">format</span>(<span class="code-str">"+%.1fK"</span>, n / <span class="code-num">1e3</span>)
+    <span class="code-kw">end</span>
+    <span class="code-kw">return</span> <span class="code-str">"+"</span> .. tostring(math.<span class="code-fn">floor</span>(n))
+<span class="code-kw">end</span>
+
+<span class="code-cmt">-- cancel running fade, show new amount, fade out after 2s</span>
+<span class="code-kw">if</span> currentTween <span class="code-kw">then</span> currentTween:<span class="code-fn">Cancel</span>() <span class="code-kw">end</span>
+label.Text = <span class="code-fn">formatPayout</span>(payout)
+label.TextTransparency = <span class="code-num">0</span>
+label.Parent.Visible = <span class="code-kw">true</span>
+task.<span class="code-fn">delay</span>(<span class="code-num">2</span>, <span class="code-kw">function</span>()
+    currentTween = TweenService:<span class="code-fn">Create</span>(label,
+        TweenInfo.<span class="code-fn">new</span>(<span class="code-num">0.4</span>, Enum.EasingStyle.Quad),
+        { TextTransparency = <span class="code-num">1</span> })
+    currentTween:<span class="code-fn">Play</span>()
+<span class="code-kw">end</span>)</div>
           </div>
 
           <div class="contract-system">
@@ -1156,7 +1215,7 @@ target:<span class="code-fn">Kick</span>(<span class="code-str">"you are banned.
     <div class="fit-grid">
       <div class="fit-item">
         <strong>PROVEN SPEED</strong>
-        Shipped 20+ fully working systems across 2 games on a live client contract. Not prototypes — production-ready, tested, and documented.
+        Shipped 40+ fully working systems across 2 games on a live client contract. Not prototypes — production-ready, tested, and documented.
       </div>
       <div class="fit-item">
         <strong>CODEBASE READY</strong>
@@ -1171,7 +1230,7 @@ target:<span class="code-fn">Kick</span>(<span class="code-str">"you are banned.
         Server-side validation, rate limiting, and sanity checks on every system. Security is never bolted on after — it's built in from the start.
       </div>
       <div class="fit-item">
-        <strong>35+ SYSTEMS BUILT</strong>
+        <strong>40+ SYSTEMS BUILT</strong>
         Economy, combat, UI, anticheat, leaderboards, carry systems, shop systems, upgrades — I've built it all and have the code to show for it.
       </div>
       <div class="fit-item">
@@ -1184,7 +1243,7 @@ target:<span class="code-fn">Kick</span>(<span class="code-str">"you are banned.
   <!-- CONTACT -->
   <div class="contact">
     <h2>Let's Work Together</h2>
-    <p>20+ systems delivered. Zero missed deadlines. Production-ready code on every delivery. If you need a scripter who gets things done, that's me.</p>
+    <p>40+ systems delivered. Zero missed deadlines. Production-ready code on every delivery. If you need a scripter who gets things done, that's me.</p>
     <div class="contact-note">💬 Discord: <strong>6fraid</strong> — send your project details and I'll get back to you same day.</div>
   </div>
 
