@@ -118,7 +118,7 @@
   .hero-sub {
     font-size: 18px;
     color: var(--muted);
-    max-width: 520px;
+    max-width: 560px;
     margin: 0 auto 40px;
     line-height: 1.6;
     font-weight: 400;
@@ -201,6 +201,142 @@
   .skill-icon { font-size: 28px; margin-bottom: 10px; display: block; }
   .skill-name { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
   .skill-desc { font-size: 12px; color: var(--muted); font-family: 'DM Mono', monospace; }
+
+  /* ── PRODUCTION HARDENING CARD ─────────────────────────────────────────── */
+
+  .hardening-card {
+    background: var(--bg2);
+    border: 1px solid rgba(167,139,250,0.3);
+    border-radius: 24px;
+    padding: 36px;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+    animation: fadeUp 0.5s ease both;
+    transition: all 0.3s;
+  }
+
+  .hardening-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #a78bfa, transparent);
+  }
+
+  .hardening-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 80% 50%, rgba(167,139,250,0.05) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .hardening-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(167,139,250,0.1);
+    border: 1px solid rgba(167,139,250,0.3);
+    border-radius: 100px;
+    padding: 4px 12px;
+    font-size: 11px;
+    font-family: 'DM Mono', monospace;
+    color: #a78bfa;
+    letter-spacing: 1px;
+    margin-bottom: 14px;
+  }
+
+  .hardening-title { font-size: 26px; font-weight: 800; color: #a78bfa; letter-spacing: -0.5px; margin-bottom: 6px; }
+  .hardening-role { font-size: 13px; font-family: 'DM Mono', monospace; color: var(--muted); margin-bottom: 14px; }
+  .hardening-desc { font-size: 15px; color: var(--muted); line-height: 1.7; margin-bottom: 28px; font-weight: 400; max-width: 720px; }
+
+  .before-after {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+
+  @media (max-width: 600px) {
+    .before-after { grid-template-columns: 1fr; }
+  }
+
+  .ba-col {
+    border-radius: 14px;
+    padding: 20px;
+  }
+
+  .ba-before {
+    background: rgba(255, 107, 53, 0.06);
+    border: 1px solid rgba(255,107,53,0.2);
+  }
+
+  .ba-after {
+    background: rgba(124,255,107,0.05);
+    border: 1px solid rgba(124,255,107,0.2);
+  }
+
+  .ba-label {
+    font-size: 11px;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .ba-before .ba-label { color: #ff6b35; }
+  .ba-after  .ba-label { color: #7cff6b; }
+
+  .ba-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .ba-list li {
+    font-size: 13px;
+    font-family: 'DM Mono', monospace;
+    color: var(--muted);
+    line-height: 1.5;
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+  }
+
+  .ba-before .ba-list li::before { content: '✕'; color: #ff6b35; flex-shrink: 0; font-size: 10px; margin-top: 2px; }
+  .ba-after  .ba-list li::before { content: '✓'; color: #7cff6b; flex-shrink: 0; font-size: 10px; margin-top: 2px; }
+
+  .hardening-scripts-title {
+    font-size: 11px;
+    font-family: 'DM Mono', monospace;
+    color: var(--muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .hardening-scripts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .hardening-script-tag {
+    background: rgba(167,139,250,0.08);
+    border: 1px solid rgba(167,139,250,0.2);
+    border-radius: 8px;
+    padding: 5px 12px;
+    font-size: 12px;
+    font-family: 'DM Mono', monospace;
+    color: #a78bfa;
+  }
+
+  /* ── CONTRACT CARD ─────────────────────────────────────────────────────── */
 
   .contract-card {
     background: var(--bg2);
@@ -596,14 +732,18 @@
   .project-card:nth-child(6) { animation-delay: 0.3s; }
   .project-card:nth-child(7) { animation-delay: 0.35s; }
 
-  .skill-card:nth-child(1) { animation-delay: 0.05s; }
-  .skill-card:nth-child(2) { animation-delay: 0.1s; }
-  .skill-card:nth-child(3) { animation-delay: 0.15s; }
-  .skill-card:nth-child(4) { animation-delay: 0.2s; }
-  .skill-card:nth-child(5) { animation-delay: 0.25s; }
-  .skill-card:nth-child(6) { animation-delay: 0.3s; }
-  .skill-card:nth-child(7) { animation-delay: 0.35s; }
-  .skill-card:nth-child(8) { animation-delay: 0.4s; }
+  .skill-card:nth-child(1)  { animation-delay: 0.05s; }
+  .skill-card:nth-child(2)  { animation-delay: 0.1s; }
+  .skill-card:nth-child(3)  { animation-delay: 0.15s; }
+  .skill-card:nth-child(4)  { animation-delay: 0.2s; }
+  .skill-card:nth-child(5)  { animation-delay: 0.25s; }
+  .skill-card:nth-child(6)  { animation-delay: 0.3s; }
+  .skill-card:nth-child(7)  { animation-delay: 0.35s; }
+  .skill-card:nth-child(8)  { animation-delay: 0.4s; }
+  .skill-card:nth-child(9)  { animation-delay: 0.45s; }
+  .skill-card:nth-child(10) { animation-delay: 0.5s; }
+  .skill-card:nth-child(11) { animation-delay: 0.55s; }
+  .skill-card:nth-child(12) { animation-delay: 0.6s; }
 
   @media (max-width: 700px) {
     .project-card { grid-template-columns: 1fr; }
@@ -625,16 +765,20 @@
   <section class="hero">
     <div class="hero-badge">available for commissions</div>
     <h1>6fraid<br><span>Scripter</span></h1>
-    <p class="hero-sub">3 years shipping clean, exploit-safe Roblox systems. Shipped 40+ fully working systems for a live client contract. Zero missed deadlines.</p>
+    <p class="hero-sub">3 years shipping clean, exploit-safe Roblox systems. Shipped 40+ fully working systems for a live client contract. If your game works in Studio but breaks with real players — that's my specialty.</p>
     <div class="hero-tags">
       <span class="tag">Lua / Luau</span>
-      <span class="tag">RemoteEvents</span>
-      <span class="tag">DataStores</span>
-      <span class="tag">UI Systems</span>
+      <span class="tag">Backend Engineering</span>
+      <span class="tag">DataStore Architecture</span>
+      <span class="tag">Concurrency Safety</span>
+      <span class="tag">High CCU Systems</span>
       <span class="tag">Server Security</span>
-      <span class="tag">Global Leaderboards</span>
       <span class="tag">Economy Systems</span>
+      <span class="tag">UI Systems</span>
+      <span class="tag">RemoteEvents</span>
+      <span class="tag">Global Leaderboards</span>
       <span class="tag">Shop Systems</span>
+      <span class="tag">Anti-Exploit</span>
       <span class="tag">Roblox Studio</span>
     </div>
   </section>
@@ -665,49 +809,136 @@
   <p class="section-title">core skills</p>
   <div class="skills-grid">
     <div class="skill-card">
-      <span class="skill-icon">🖥️</span>
-      <div class="skill-name">UI Systems</div>
-      <div class="skill-desc">ScreenGui, Tweens, animations</div>
+      <span class="skill-icon">⚙️</span>
+      <div class="skill-name">Backend Engineering</div>
+      <div class="skill-desc">Module architecture, service patterns, clean APIs</div>
+    </div>
+    <div class="skill-card">
+      <span class="skill-icon">💾</span>
+      <div class="skill-name">DataStore Architecture</div>
+      <div class="skill-desc">ProfileService, batched writes, data integrity</div>
     </div>
     <div class="skill-card">
       <span class="skill-icon">🔒</span>
       <div class="skill-name">Server Security</div>
-      <div class="skill-desc">Anti-exploit, rate limiting</div>
-    </div>
-    <div class="skill-card">
-      <span class="skill-icon">💾</span>
-      <div class="skill-name">DataStores</div>
-      <div class="skill-desc">Persistent player data saving</div>
-    </div>
-    <div class="skill-card">
-      <span class="skill-icon">🎮</span>
-      <div class="skill-name">Player Systems</div>
-      <div class="skill-desc">Movement, combat, stats</div>
+      <div class="skill-desc">Anti-exploit, rate limiting, server-side validation</div>
     </div>
     <div class="skill-card">
       <span class="skill-icon">📡</span>
       <div class="skill-name">Remote Events</div>
-      <div class="skill-desc">Client-server communication</div>
+      <div class="skill-desc">Client-server communication, input validation</div>
+    </div>
+    <div class="skill-card">
+      <span class="skill-icon">🔄</span>
+      <div class="skill-name">Concurrency Safety</div>
+      <div class="skill-desc">Locks, race condition prevention, safe state</div>
     </div>
     <div class="skill-card">
       <span class="skill-icon">💰</span>
       <div class="skill-name">Economy Systems</div>
-      <div class="skill-desc">Income, upgrades, rewards</div>
+      <div class="skill-desc">Income, upgrades, shop systems, rewards</div>
+    </div>
+    <div class="skill-card">
+      <span class="skill-icon">🖥️</span>
+      <div class="skill-name">UI Systems</div>
+      <div class="skill-desc">ScreenGui, TweenService, animations</div>
     </div>
     <div class="skill-card">
       <span class="skill-icon">🏆</span>
       <div class="skill-name">Leaderboards</div>
-      <div class="skill-desc">Global OrderedDataStore</div>
+      <div class="skill-desc">Global OrderedDataStore, cached rendering</div>
+    </div>
+    <div class="skill-card">
+      <span class="skill-icon">🎮</span>
+      <div class="skill-name">Player Systems</div>
+      <div class="skill-desc">Movement, combat, stats, lifecycle management</div>
     </div>
     <div class="skill-card">
       <span class="skill-icon">🗂️</span>
       <div class="skill-name">Game Architecture</div>
-      <div class="skill-desc">Modular, scalable design</div>
+      <div class="skill-desc">Modular, scalable, maintainable design</div>
+    </div>
+    <div class="skill-card">
+      <span class="skill-icon">⚡</span>
+      <div class="skill-name">Performance</div>
+      <div class="skill-desc">Caching, batching, O(1) lookups, no hot loops</div>
+    </div>
+    <div class="skill-card">
+      <span class="skill-icon">🧩</span>
+      <div class="skill-name">Live Game Debugging</div>
+      <div class="skill-desc">Diagnosing and fixing issues in production code</div>
+    </div>
+  </div>
+
+  <!-- PRODUCTION HARDENING -->
+  <p class="section-title">production hardening case study</p>
+
+  <div class="hardening-card">
+    <div class="hardening-badge">⚡ PRODUCTION HARDENING · NEBULARK INC.</div>
+    <div style="display: grid; grid-template-columns: 1fr auto; gap: 20px; align-items: start;">
+      <div>
+        <div class="hardening-title">Scaling a Live Game for High CCU</div>
+        <div class="hardening-role">// full script audit + rewrite · concurrency safety · datastore architecture · Mar 2026</div>
+        <div class="hardening-desc">
+          The game was well-architected from day one with solid systems thinking and clean module separation. This session was purely about hardening it for production scale. The issues found were the kind that only surface under real concurrency — they don't show up in solo Studio testing. Eight independent PlayerAdded listeners all racing to read profile data that might not exist yet, player objects used as table keys instead of UserIds causing memory leaks under churn, and <code style="background: rgba(167,139,250,0.1); border-radius:4px; padding:2px 6px; font-family:'DM Mono',monospace; font-size:12px; color:#a78bfa;">_G</code> as a data bus becoming unpredictable when multiple scripts fire simultaneously. A coroutine queue deadlock in PlayerBases was a subtle Lua-specific issue where <code style="background: rgba(167,139,250,0.1); border-radius:4px; padding:2px 6px; font-family:'DM Mono',monospace; font-size:12px; color:#a78bfa;">coroutine.running()</code> returns nil when called outside a coroutine — something that only surfaces when the calling context changes. The result is a codebase that now handles real player load safely.
+        </div>
+
+        <div class="before-after">
+          <div class="ba-col ba-before">
+            <div class="ba-label">⚠ before</div>
+            <ul class="ba-list">
+              <li>8 independent PlayerAdded listeners racing on join</li>
+              <li>Player objects as table keys — memory leaks under load</li>
+              <li>_G used as cross-module data bus — race conditions on join</li>
+              <li>Coroutine queue deadlock blocking base assignment</li>
+              <li>SetAsync fired on every coin flip — datastore hammering</li>
+              <li>Full workspace traversal on every brainrot spawn</li>
+              <li>No concurrency locks on place / pickup / upgrades</li>
+              <li>Username + thumbnail HTTP calls on every board refresh</li>
+            </ul>
+          </div>
+          <div class="ba-col ba-after">
+            <div class="ba-label">✓ after</div>
+            <ul class="ba-list">
+              <li>Single authoritative join sequence, guaranteed order</li>
+              <li>UserId keys everywhere — no leaks, clean on leave</li>
+              <li>DataStore.GetProfile(userId) module API — no globals</li>
+              <li>task.wait() mutex — works from any calling context</li>
+              <li>Flips batched to ProfileService auto-save on leave</li>
+              <li>BrainrotCache built once at startup — O(1) at runtime</li>
+              <li>Per-stand concurrency locks on all write operations</li>
+              <li>Username + thumbnail cached per UserId forever</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="hardening-scripts-title">scripts refactored for production</div>
+        <div class="hardening-scripts">
+          <span class="hardening-script-tag">DataStore</span>
+          <span class="hardening-script-tag">DataStoreRunner</span>
+          <span class="hardening-script-tag">PlayerBases</span>
+          <span class="hardening-script-tag">StandManager</span>
+          <span class="hardening-script-tag">BrainrotCache</span>
+          <span class="hardening-script-tag">CoinFlip</span>
+          <span class="hardening-script-tag">CarryManager</span>
+          <span class="hardening-script-tag">CollectedManager</span>
+          <span class="hardening-script-tag">CoinShopManager</span>
+          <span class="hardening-script-tag">SellManager</span>
+          <span class="hardening-script-tag">ShopUpgradeManager</span>
+          <span class="hardening-script-tag">StandUpgradeManager</span>
+          <span class="hardening-script-tag">GamePassManager</span>
+          <span class="hardening-script-tag">LeaderboardManager</span>
+          <span class="hardening-script-tag">AdminRunner</span>
+          <span class="hardening-script-tag">CoinGiver</span>
+          <span class="hardening-script-tag">SellShopHandler</span>
+        </div>
+      </div>
+      <div style="font-size:56px; line-height:1; filter:drop-shadow(0 4px 16px rgba(167,139,250,0.3)); flex-shrink:0;">🔧</div>
     </div>
   </div>
 
   <!-- CURRENT CONTRACT -->
-  <p class="section-title">current contract</p>
+  <p class="section-title" style="margin-top: 60px;">current contract</p>
 
   <div class="contract-card">
     <div class="contract-badge">ACTIVE CONTRACT</div>
@@ -850,10 +1081,7 @@ SellAllBrainrots.OnServerEvent:<span class="code-fn">Connect</span>(<span class=
             <span class="code-kw">or</span> i == <span class="code-num">3</span> <span class="code-kw">and</span> Color3.<span class="code-fn">fromRGB</span>(<span class="code-num">205</span>,<span class="code-num">127</span>,<span class="code-num">50</span>)
             <span class="code-kw">or</span> Color3.<span class="code-fn">new</span>(<span class="code-num">1</span>,<span class="code-num">1</span>,<span class="code-num">1</span>)
     <span class="code-kw">end</span>
-<span class="code-kw">end</span>
-
-<span class="code-cmt">-- sync stat to OrderedDataStore on every claim</span>
-TotalEarnedStore:<span class="code-fn">SetAsync</span>(tostring(player.UserId), profile.Data.TotalEarned)</div>
+<span class="code-kw">end</span></div>
           </div>
 
           <div class="contract-system">
@@ -923,13 +1151,7 @@ pendingStealByPlayer[thief] = {
     standId = standId,
     expiresAt = os.<span class="code-fn">clock</span>() + <span class="code-num">120</span>,
 }
-MarketplaceService:<span class="code-fn">PromptProductPurchase</span>(thief, productId)
-
-<span class="code-cmt">-- ProcessReceipt routes to ExecuteSteal via runner callback</span>
-<span class="code-kw">elseif</span> GamePassConfig.StealProductIds[receiptInfo.ProductId] <span class="code-kw">then</span>
-    <span class="code-kw">if</span> stealHandler <span class="code-kw">then</span>
-        granted = <span class="code-fn">stealHandler</span>(purchaser, receiptInfo.ProductId)
-    <span class="code-kw">end</span></div>
+MarketplaceService:<span class="code-fn">PromptProductPurchase</span>(thief, productId)</div>
           </div>
 
           <div class="contract-system">
@@ -973,25 +1195,9 @@ UpgradeManager.<span class="code-fn">UpdateUpgradeCard</span>(standId)</div>
 
           <div class="contract-system">
             <div class="contract-system-name">Money Notification Popup</div>
-            <div class="contract-system-detail">When a player claims a pad, a compact payout amount fades in above the HUD (+1.2M, +987,384 etc). Cancels any running fade if claimed again quickly. Hidden on spawn and respawn via init function.</div>
+            <div class="contract-system-detail">When a player claims a pad, a compact payout amount fades in above the HUD. Cancels any running fade if claimed again quickly.</div>
             <button class="snippet-toggle" onclick="toggleSnippet('snippet-moneynotif', this)">view snippet</button>
-            <div class="code-snippet" id="snippet-moneynotif"><span class="code-kw">local function</span> <span class="code-fn">formatPayout</span>(n)
-    <span class="code-kw">if</span> n >= <span class="code-num">1e6</span> <span class="code-kw">then</span>
-        <span class="code-kw">local</span> val = n / <span class="code-num">1e6</span>
-        <span class="code-kw">return</span> val == math.<span class="code-fn">floor</span>(val)
-            <span class="code-kw">and</span> string.<span class="code-fn">format</span>(<span class="code-str">"+%dM"</span>, val)
-            <span class="code-kw">or</span>  string.<span class="code-fn">format</span>(<span class="code-str">"+%.1fM"</span>, val)
-    <span class="code-kw">elseif</span> n >= <span class="code-num">1e3</span> <span class="code-kw">then</span>
-        <span class="code-kw">if</span> n < <span class="code-num">100000</span> <span class="code-kw">then</span>
-            <span class="code-kw">local</span> s = tostring(math.<span class="code-fn">floor</span>(n))
-            <span class="code-kw">return</span> <span class="code-str">"+"</span> .. s:<span class="code-fn">reverse</span>():<span class="code-fn">gsub</span>(<span class="code-str">"(%d%d%d)"</span>, <span class="code-str">"%1,"</span>):<span class="code-fn">reverse</span>():<span class="code-fn">gsub</span>(<span class="code-str">"^,"</span>, <span class="code-str">""</span>)
-        <span class="code-kw">end</span>
-        <span class="code-kw">return</span> string.<span class="code-fn">format</span>(<span class="code-str">"+%.1fK"</span>, n / <span class="code-num">1e3</span>)
-    <span class="code-kw">end</span>
-    <span class="code-kw">return</span> <span class="code-str">"+"</span> .. tostring(math.<span class="code-fn">floor</span>(n))
-<span class="code-kw">end</span>
-
-<span class="code-cmt">-- cancel running fade, show new amount, fade out after 2s</span>
+            <div class="code-snippet" id="snippet-moneynotif"><span class="code-cmt">-- cancel running fade, show new amount, fade out after 2s</span>
 <span class="code-kw">if</span> currentTween <span class="code-kw">then</span> currentTween:<span class="code-fn">Cancel</span>() <span class="code-kw">end</span>
 label.Text = <span class="code-fn">formatPayout</span>(payout)
 label.TextTransparency = <span class="code-num">0</span>
@@ -1009,7 +1215,6 @@ task.<span class="code-fn">delay</span>(<span class="code-num">2</span>, <span c
             <div class="contract-system-detail">30+ commands including ban with expiry, kick, announce, forceluck, speed, goto, bring, freeze, giant, fling, resetdata, mutate, and runtime mod/admin grants. Scrollable GUI panel, session logs, and server-wide announcement banner.</div>
             <button class="snippet-toggle" onclick="toggleSnippet('snippet-admin', this)">view snippet</button>
             <div class="code-snippet" id="snippet-admin"><span class="code-cmt">-- ban command with duration parsing and datastore persistence</span>
-<span class="code-kw">local</span> duration = BAN_DURATIONS[durationArg]
 <span class="code-kw">local</span> expiry = duration == math.huge
     <span class="code-kw">and</span> math.huge
     <span class="code-kw">or</span>  os.<span class="code-fn">time</span>() + duration
@@ -1019,16 +1224,12 @@ profile.Data.BanData = {
     Expiry   = expiry,
     Reason   = reason,
 }
-
-SessionLogs.<span class="code-fn">LogPlayerAction</span>(target.Name, admin.Name,
-    <span class="code-str">"banned "</span> .. durationText .. <span class="code-str">": "</span> .. reason)
-<span class="code-fn">announceToAll</span>(target.Name .. <span class="code-str">" was banned. reason: "</span> .. reason)
 target:<span class="code-fn">Kick</span>(<span class="code-str">"you are banned. reason: "</span> .. reason)</div>
           </div>
 
           <div class="contract-system">
             <div class="contract-system-name">Inventory & Hotbar System</div>
-            <div class="contract-system-detail">Full custom backpack replacement. Hotbar slots clone dynamically and destroy when empty. Backtick opens full inventory. Number keys 1-5 and clicks both equip/unequip. GUI refs re-fetched on every respawn.</div>
+            <div class="contract-system-detail">Full custom backpack replacement. Hotbar slots clone dynamically and destroy when empty. Backtick opens full inventory. Number keys 1-5 and clicks both equip/unequip.</div>
             <button class="snippet-toggle" onclick="toggleSnippet('snippet-hotbar', this)">view snippet</button>
             <div class="code-snippet" id="snippet-hotbar"><span class="code-cmt">-- clone slots dynamically, wire clicks, destroy when no longer needed</span>
 <span class="code-kw">local</span> needed = math.<span class="code-fn">min</span>(<span class="code-num">1</span> + #currentOwned, <span class="code-num">5</span>)
@@ -1039,11 +1240,6 @@ target:<span class="code-fn">Kick</span>(<span class="code-str">"you are banned.
     newSlot:<span class="code-fn">SetAttribute</span>(<span class="code-str">"ClickWired"</span>, <span class="code-kw">false</span>)
     newSlot.Parent = slotsLayout
     slots[#slots + <span class="code-num">1</span>] = newSlot
-<span class="code-kw">end</span>
-
-<span class="code-kw">local</span> currentSlots = <span class="code-fn">getSlots</span>()
-<span class="code-kw">for</span> i = needed + <span class="code-num">1</span>, #currentSlots <span class="code-kw">do</span>
-    currentSlots[i]:<span class="code-fn">Destroy</span>()
 <span class="code-kw">end</span></div>
           </div>
 
@@ -1072,7 +1268,7 @@ target:<span class="code-fn">Kick</span>(<span class="code-str">"you are banned.
       <div>
         <div class="featured-title">Bug Fixer - Full Roblox Game</div>
         <div class="featured-desc">
-          A complete solo-built Roblox game where players take contracts fixing bugs for in-game companies to earn money and progress their career. Built every system from scratch - architecture, security, UI, data, and game loop - all production-ready and exploit-safe.
+          A complete solo-built Roblox game where players take contracts fixing bugs for in-game companies to earn money and progress their career. Built every system from scratch — architecture, security, UI, data, and game loop — all production-ready and exploit-safe.
         </div>
         <div class="featured-systems">
           <div class="system-item">Global Leaderboard</div>
@@ -1131,7 +1327,7 @@ target:<span class="code-fn">Kick</span>(<span class="code-str">"you are banned.
       <div>
         <div class="project-number">PROJECT 03</div>
         <div class="project-title">Tutorial & Arrow System</div>
-        <div class="project-desc">A 3-step guided tutorial system with a rotating arrow that always points toward the target - even pinning to the screen edge when off screen. Includes step progress tracker, completion popups, and auto-cleanup when finished.</div>
+        <div class="project-desc">A 3-step guided tutorial system with a rotating arrow that always points toward the target — even pinning to the screen edge when off screen. Includes step progress tracker, completion popups, and auto-cleanup when finished.</div>
         <div class="project-features">
           <span class="feature-tag">WorldToViewport</span>
           <span class="feature-tag">RunService</span>
@@ -1207,19 +1403,19 @@ target:<span class="code-fn">Kick</span>(<span class="code-str">"you are banned.
 
   </div>
 
-  <!-- WHY I FIT -->
+  <!-- WHY HIRE ME -->
   <p class="section-title">why hire me</p>
   <div class="fit-section">
-    <div class="fit-title">I ship fast, I ship clean, and I don't need hand-holding.</div>
-    <div class="fit-sub">// proven on live contracts · production-ready code · zero missed deadlines</div>
+    <div class="fit-title">I build systems that hold up when real players show up.</div>
+    <div class="fit-sub">// proven on live contracts · concurrency-safe · production-ready · zero missed deadlines</div>
     <div class="fit-grid">
       <div class="fit-item">
         <strong>PROVEN SPEED</strong>
-        Shipped 40+ fully working systems across 2 games on a live client contract. Not prototypes — production-ready, tested, and documented.
+        Shipped 40+ fully working systems across 2 games on a live client contract. Not prototypes — production-ready, tested, and integrated into an existing codebase.
       </div>
       <div class="fit-item">
-        <strong>CODEBASE READY</strong>
-        Integrated into an existing multi-scripter codebase on day one with no ramp-up time. Read the architecture, understood it, and shipped immediately.
+        <strong>HIGH CCU READY</strong>
+        Built for real player load — UserId-keyed state, concurrency locks, batched DataStore writes, and single-authority join sequences. No race conditions under load.
       </div>
       <div class="fit-item">
         <strong>FULL STACK</strong>
@@ -1227,11 +1423,11 @@ target:<span class="code-fn">Kick</span>(<span class="code-str">"you are banned.
       </div>
       <div class="fit-item">
         <strong>EXPLOIT-SAFE BY DEFAULT</strong>
-        Server-side validation, rate limiting, and sanity checks on every system. Security is never bolted on after — it's built in from the start.
+        Server-side validation, rate limiting, and sanity checks on every system. Security is built in from the start, not patched on after.
       </div>
       <div class="fit-item">
-        <strong>40+ SYSTEMS BUILT</strong>
-        Economy, combat, UI, anticheat, leaderboards, carry systems, shop systems, upgrades — I've built it all and have the code to show for it.
+        <strong>LIVE GAME EXPERIENCE</strong>
+        Integrated into a multi-scripter Team Create codebase on day one. I read existing architecture, understand it, and ship without breaking what's already there.
       </div>
       <div class="fit-item">
         <strong>ZERO MISSED DEADLINES</strong>
@@ -1243,8 +1439,8 @@ target:<span class="code-fn">Kick</span>(<span class="code-str">"you are banned.
   <!-- CONTACT -->
   <div class="contact">
     <h2>Let's Work Together</h2>
-    <p>40+ systems delivered. Zero missed deadlines. Production-ready code on every delivery. If you need a scripter who gets things done, that's me.</p>
-    <div class="contact-note">💬 Discord: <strong>6fraid</strong> — send your project details and I'll get back to you same day.</div>
+    <p>40+ systems delivered. Zero missed deadlines. Production-ready, concurrency-safe code on every delivery.<br>If your game works in Studio but breaks with real players — that's exactly what I fix.</p>
+    <div class="contact-note">💬 Discord: <strong>@6fraid</strong> — send your project details and I'll get back to you same day.</div>
   </div>
 
 </div>
